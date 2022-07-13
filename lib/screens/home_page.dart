@@ -22,7 +22,7 @@ Future<void> addSong(String _uid) async {
         "songJanre": "가요",
         "songUtubeAddress": "http://122.37.216.171:12345/jsy_fav/index.html",
         "songETC": "songETC",
-        'timestamp': DateTime.now(),
+        'timestamp': "2022년 7월 13일",
         "songOwnerId": _uid
       },
     );
@@ -135,10 +135,10 @@ Future<void> getAllSongs(String userId) async {
     print(">>>>길이 : ${songs.length}");
     for (var i = 0; i < songs.length; i++) {
       Map<String, dynamic> t = songs[i] as Map<String, dynamic>;
+      // print(t["id"]);
 
       Song song = Song.fromMap(t);
-      allSongs.add(song);
-      print(t["id"]);
+      // allSongs.add(song);
       // print(songs[i].toString());
       // Song t = Song.fromDoc(songs[i]);
       // print(t.songID);
@@ -146,4 +146,6 @@ Future<void> getAllSongs(String userId) async {
   } catch (e) {
     print(e);
   }
+  // print(">>>>>>>> first : ${allSongs[0]}");
+  // print(">>>>>>>> first : ${allSongs[1]}");
 }

@@ -11,7 +11,7 @@ class Song extends Equatable {
   final String songJanre;
   final String songUtubeAddress;
   final String songETC;
-  final Timestamp timestamp;
+  final String timestamp;
 
   const Song(
       {required this.id,
