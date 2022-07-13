@@ -116,19 +116,29 @@ Future<void> getAllSongs(String userId) async {
         .get();
     List<Object> songs = userSongsSnapshot.docs.map(
       (songDoc) {
+        Map<String, dynamic> t = songDoc.data() as Map<String, dynamic>;
+        // print('=======> ${t["id"]}');
+        // print('=======>>>>>> ${t["songName"]}');
         // return Song.fromDoc(songDoc.data() );
         // print(songDoc.data());
-        var m={songDoc.data()};
-        print(m);
-        return songDoc.data()!;
+        // Map<String, dynamic> m = {};
+        // m.addAll(songDoc.data());
+
+        // print(m[0]);
+        // return songDoc.data()!;
+        return t;
       },
     ).toList();
+    // Song.fromDoc(songs[0].toString());
+    // print("songs 0 : ${songs[0].toString()}");
     print(">>>>길이 : ${songs.length}");
-    // for (var i = 0; i < songs.length; i++) {
-      // print(songs[i]["songOwnerId"]);
+    for (var i = 0; i < songs.length; i++) {
+      Map<String, dynamic> t = songs[i] as Map<String, dynamic>;
+      print(t["id"]);
+      // print(songs[i].toString());
       // Song t = Song.fromDoc(songs[i]);
       // print(t.songID);
-    // }
+    }
   } catch (e) {
     print(e);
   }
