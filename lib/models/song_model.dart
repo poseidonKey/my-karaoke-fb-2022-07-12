@@ -40,20 +40,7 @@ class Song extends Equatable {
       timestamp: songData.timestamp,
     );
   }
-  factory Song.fromMap(Map<String, dynamic> songDoc) {
-    return Song(
-      id: songDoc["id"],
-      songID: songDoc["songID"],
-      songOwnerId: songDoc["songOwnerId"],
-      songName: songDoc["songName"],
-      songGYNumber: songDoc["songGYNumber"],
-      songTJNumber: songDoc["songTJNumber"],
-      songJanre: songDoc["songJanre"],
-      songUtubeAddress: songDoc["songUtubeAddress"],
-      songETC: songDoc["songETC"],
-      timestamp: songDoc["timestamp"],
-    );
-  }
+  
 
   Map<String, dynamic> toJson() {
     return {

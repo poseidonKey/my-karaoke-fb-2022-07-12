@@ -135,17 +135,26 @@ Future<void> getAllSongs(String userId) async {
     print(">>>>길이 : ${songs.length}");
     for (var i = 0; i < songs.length; i++) {
       Map<String, dynamic> t = songs[i] as Map<String, dynamic>;
-      // print(t["id"]);
-
-      Song song = Song.fromMap(t);
-      // allSongs.add(song);
-      // print(songs[i].toString());
-      // Song t = Song.fromDoc(songs[i]);
-      // print(t.songID);
+      Song song = fromMap(t);
+      allSongs.add(song);
     }
   } catch (e) {
     print(e);
   }
-  // print(">>>>>>>> first : ${allSongs[0]}");
-  // print(">>>>>>>> first : ${allSongs[1]}");
+  print(">>>>>>>> first : ${allSongs[0]}");
+  print(">>>>>>>> first : ${allSongs[1]}");
 }
+Song fromMap(Map<String, dynamic> songDoc) {
+    return Song(
+      id: songDoc["id"],
+      songID: songDoc["songID"],
+      songOwnerId: songDoc["songOwnerId"],
+      songName: songDoc["songName"],
+      songGYNumber: songDoc["songGYNumber"],
+      songTJNumber: songDoc["songTJNumber"],
+      songJanre: songDoc["songJanre"],
+      songUtubeAddress: songDoc["songUtubeAddress"],
+      songETC: songDoc["songETC"],
+      timestamp: songDoc["timestamp"],
+    );
+  }
