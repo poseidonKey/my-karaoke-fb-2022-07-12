@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "337038666033",
+    "project_id": "karaoke-fb",
+    "storage_bucket": "karaoke-fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337038666033:android:e9e42d097f44f2c341e810",
+        "android_client_info": {
+          "package_name": "com.example.my_karaoke_fb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337038666033-llbe43kqp6acgd183aud6rh28dt2las0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.my_karaoke_fb",
+            "certificate_hash": "f23416b026753967a44d704fbc23eff85f5df7a6"
+          }
+        },
+        {
+          "client_id": "337038666033-irmmgr9a9m0qv8i5ts8gvm7uag3288u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrjZuovSxbx8koX5TRFu9KSWxSnpTB0y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337038666033-irmmgr9a9m0qv8i5ts8gvm7uag3288u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337038666033:android:9b7b9cfe3f48ac1c41e810",
+        "android_client_info": {
+          "package_name": "org.jsy.my_karaoke_fb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337038666033-3eeefp10ee2t9pao5hd45vp394pc0gks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.jsy.my_karaoke_fb",
+            "certificate_hash": "f23416b026753967a44d704fbc23eff85f5df7a6"
+          }
+        },
+        {
+          "client_id": "337038666033-irmmgr9a9m0qv8i5ts8gvm7uag3288u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrjZuovSxbx8koX5TRFu9KSWxSnpTB0y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337038666033-irmmgr9a9m0qv8i5ts8gvm7uag3288u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337038666033:android:ad7734fd57ab8bac41e810",
+        "android_client_info": {
+          "package_name": "org.jsy.my_karaoke_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337038666033-irmmgr9a9m0qv8i5ts8gvm7uag3288u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrjZuovSxbx8koX5TRFu9KSWxSnpTB0y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337038666033-irmmgr9a9m0qv8i5ts8gvm7uag3288u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
