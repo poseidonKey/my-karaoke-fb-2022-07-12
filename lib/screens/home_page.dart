@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 Future<void> getAllSongs(String userId) async {
+  List<Song> allSongs = [];
   try {
     QuerySnapshot userSongsSnapshot = await FirebaseFirestore.instance
         .collection('songs')
@@ -134,6 +135,9 @@ Future<void> getAllSongs(String userId) async {
     print(">>>>길이 : ${songs.length}");
     for (var i = 0; i < songs.length; i++) {
       Map<String, dynamic> t = songs[i] as Map<String, dynamic>;
+
+      Song song = Song.fromMap(t);
+      allSongs.add(song);
       print(t["id"]);
       // print(songs[i].toString());
       // Song t = Song.fromDoc(songs[i]);
