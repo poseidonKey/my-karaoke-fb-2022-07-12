@@ -117,15 +117,18 @@ Future<void> getAllSongs(String userId) async {
     List<Object> songs = userSongsSnapshot.docs.map(
       (songDoc) {
         // return Song.fromDoc(songDoc.data() );
+        // print(songDoc.data());
+        var m={songDoc.data()};
+        print(m);
         return songDoc.data()!;
       },
     ).toList();
     print(">>>>길이 : ${songs.length}");
-    for (var i = 0; i < songs.length; i++) {
+    // for (var i = 0; i < songs.length; i++) {
       // print(songs[i]["songOwnerId"]);
       // Song t = Song.fromDoc(songs[i]);
       // print(t.songID);
-    }
+    // }
   } catch (e) {
     print(e);
   }
