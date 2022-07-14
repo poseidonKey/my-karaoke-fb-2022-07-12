@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/controller/song_controller.dart';
 
 import '../models/song_model.dart';
 
@@ -39,41 +41,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final songController = Get.put(SongController());
+  int _selectedIndex = 0;
   final List<Widget> _pages = [
     Center(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text("Song List"),centerTitle: true,
+        ),
         body: Column(
           children: [
-            ElevatedButton(
-              onPressed: () async {
-                UserCredential userCredential =
-                    // await FirebaseAuth.instance.signInAnonymously();
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: "b@b.com", password: "123456");
-                String? userId = userCredential.user?.uid;
-                await addSong(userId!).then((value) => print("add song"));
-              },
-              child: Text("add Data"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    UserCredential userCredential =
+                        // await FirebaseAuth.instance.signInAnonymously();
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                            email: "b@b.com", password: "123456");
+                    String? userId = userCredential.user?.uid;
+                    await addSong(userId!).then((value) => print("add song"));
+                  },
+                  child: Text("add Data"),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    UserCredential userCredential =
+                        // await FirebaseAuth.instance.signInAnonymously();
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                            email: "b@b.com", password: "123456");
+                    String? userId = userCredential.user?.uid;
+                    
+                    // await getAllSongs(userId!).then((value) => print("load song"));
+                  },
+                  child: Text("Load data"),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () async {
-                UserCredential userCredential =
-                    // await FirebaseAuth.instance.signInAnonymously();
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: "b@b.com", password: "123456");
-                String? userId = userCredential.user?.uid;
-                await getAllSongs(userId!).then((value) => print("load song"));
-              },
-              child: Text("Load data"),
-            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 20,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text("List : $index"),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
     ),
     Container(),
   ];
-  int _selectedIndex = 0;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -105,56 +130,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-Future<void> getAllSongs(String userId) async {
-  List<Song> allSongs = [];
-  try {
-    QuerySnapshot userSongsSnapshot = await FirebaseFirestore.instance
-        .collection('songs')
-        .doc(userId)
-        .collection("userSongs")
-        .orderBy("timestamp", descending: true)
-        .get();
-    List<Object> songs = userSongsSnapshot.docs.map(
-      (songDoc) {
-        Map<String, dynamic> t = songDoc.data() as Map<String, dynamic>;
-        // print('=======> ${t["id"]}');
-        // print('=======>>>>>> ${t["songName"]}');
-        // return Song.fromDoc(songDoc.data() );
-        // print(songDoc.data());
-        // Map<String, dynamic> m = {};
-        // m.addAll(songDoc.data());
-
-        // print(m[0]);
-        // return songDoc.data()!;
-        return t;
-      },
-    ).toList();
-    // Song.fromDoc(songs[0].toString());
-    // print("songs 0 : ${songs[0].toString()}");
-    print(">>>>길이 : ${songs.length}");
-    for (var i = 0; i < songs.length; i++) {
-      Map<String, dynamic> t = songs[i] as Map<String, dynamic>;
-      Song song = fromMap(t);
-      allSongs.add(song);
-    }
-  } catch (e) {
-    print(e);
-  }
-  print(">>>>>>>> first : ${allSongs[0]}");
-  print(">>>>>>>> first : ${allSongs[1]}");
-}
-Song fromMap(Map<String, dynamic> songDoc) {
-    return Song(
-      id: songDoc["id"],
-      songID: songDoc["songID"],
-      songOwnerId: songDoc["songOwnerId"],
-      songName: songDoc["songName"],
-      songGYNumber: songDoc["songGYNumber"],
-      songTJNumber: songDoc["songTJNumber"],
-      songJanre: songDoc["songJanre"],
-      songUtubeAddress: songDoc["songUtubeAddress"],
-      songETC: songDoc["songETC"],
-      timestamp: songDoc["timestamp"],
-    );
-  }

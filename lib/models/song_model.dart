@@ -25,10 +25,11 @@ class Song extends Equatable {
       required this.songETC,
       required this.timestamp});
 
-  factory Song.fromDoc(DocumentSnapshot<Song> songDoc) {
-    final Song songData = songDoc.data()!;
+  factory Song.fromDoc(DocumentSnapshot<Object?> songDoc) {
+    final Song songData = songDoc.data()! as Song;
     return Song(
-      id: songDoc.data()!.id,
+      // id: songDoc.data()?.id,
+      id: "id",
       songID: songData.songID,
       songOwnerId: songData.songOwnerId,
       songName: songData.songName,
