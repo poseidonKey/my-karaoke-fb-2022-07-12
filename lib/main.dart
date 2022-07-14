@@ -24,27 +24,19 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Firebase cli',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       // home: HomePage(),
       home: Builder(
           // builder: (context) =>
           builder: (context) {
-        print(isAuthenticated(context));
-        return HomePage();
+        // print(isAuthenticated(context));
+        // return HomePage();
+        return SigninPage();
         // return MessageListScreen();
       }),
     );
   }
 
-  Future<bool> isAuthenticated(BuildContext context) async {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: "a@a.com", password: "123456");
-    String? userId = userCredential.user?.uid;
-
-    if (userId != null) {
-      return true;
-    }
-    return false;
-  }
+  
 }

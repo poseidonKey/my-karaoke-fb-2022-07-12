@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/controller/song_controller.dart';
+import '../controller/stream_data.dart';
 import '../models/song_model.dart';
 
 Future<void> addSong(String _uid) async {
@@ -33,7 +34,8 @@ Future<void> addSong(String _uid) async {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.uid}) : super(key: key);
+  final String uid;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -56,12 +58,13 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    UserCredential userCredential =
-                        // await FirebaseAuth.instance.signInAnonymously();
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                            email: "b@b.com", password: "123456");
-                    String? userId = userCredential.user?.uid;
-                    await addSong(userId!).then((value) => print("add song"));
+                    // UserCredential userCredential =
+                    // await FirebaseAuth.instance.signInAnonymously();
+                    // await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    //     email: "b@b.com", password: "123456");
+                    // String? userId = userCredential.user?.uid;
+                    await addSong("ALXyp4TcnKeefbKcgq9emzH43z12")
+                        .then((value) => print("add song"));
                   },
                   child: Text("add Data"),
                 ),
@@ -82,6 +85,9 @@ class _HomePageState extends State<HomePage> {
                   child: Text("Load data"),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 5,
             ),
             Expanded(
               child: StreamBuilder<List<Song>>(
@@ -104,8 +110,14 @@ class _HomePageState extends State<HomePage> {
                           child: ListView.builder(
                             itemCount: messages.length,
                             itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(messages[index].songJanre),
+                              return Dismissible(
+                                key: Key(messages[index].id),
+                                child: ListTile(
+                                  leading: const Icon(Icons.favorite),
+                                  title: Text(messages[index].songName),
+                                  subtitle: Text(messages[index].songJanre),
+                                  trailing: Icon(Icons.edit),
+                                ),
                               );
                             },
                           ),
@@ -156,35 +168,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
-  }
-}
-
-Stream<List<Song>> streamMessages() {
-  try {
-    //찾고자 하는 컬렉션의 스냅샷(Stream)을 가져온다.
-    final Stream<QuerySnapshot> snapshots = FirebaseFirestore.instance
-        .collection('songs')
-        .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
-        .collection("userSongs")
-        .snapshots();
-
-    //새낭 스냅샷(Stream)내부의 자료들을 List<MessageModel> 로 변환하기 위해 map을 사용하도록 한다.
-    //참고로 List.map()도 List 안의 element들을 원하는 형태로 변환하여 새로운 List로 반환한다
-    return snapshots.map((querySnapshot) {
-      List<Song> messages =
-          []; //querySnapshot을 message로 옮기기 위해 List<MessageModel> 선언
-      querySnapshot.docs.forEach((element) {
-        print(">>>>>>>>> ${element.data()}");
-        //해당 컬렉션에 존재하는 모든 docs를 순회하며 messages 에 데이터를 추가한다.
-        messages.add(Song.fromMap(
-            id: element.id, map: element.data() as Map<String, dynamic>));
-      });
-      return messages; //QuerySnapshot에서 List<MessageModel> 로 변경이 됐으니 반환
-    }); //Stream<QuerySnapshot> 에서 Stream<List<MessageModel>>로 변경되어 반환됨
-
-  } catch (ex) {
-    //오류 발생 처리
-    // log('error)', error: ex.toString(), stackTrace: StackTrace.current);
-    return Stream.error(ex.toString());
   }
 }

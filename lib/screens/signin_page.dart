@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/screens/home_page.dart';
 
 class SigninPage extends StatefulWidget {
-   const SigninPage({Key? key}) : super(key: key); 
-  static const String routeName = 'signin-page'; 
+  const SigninPage({Key? key}) : super(key: key);
+  static const String routeName = 'signin-page';
 
   @override
   _SigninPageState createState() => _SigninPageState();
@@ -13,7 +15,7 @@ class _SigninPageState extends State<SigninPage> {
   final _fKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   late String _email, _password;
-  void _submit() async {
+  void _submit(BuildContext context) async {
     setState(() {
       autovalidateMode = AutovalidateMode.always;
     });
@@ -21,13 +23,19 @@ class _SigninPageState extends State<SigninPage> {
     if (!_fKey.currentState!.validate()) return;
     _fKey.currentState!.save();
     print('email: $_email, password: $_password');
-    // try {
-    //   await context
-    //       .read<AuthProvider>()
-    //       .signIn(email: _email, password: _password);
-    // } catch (e) {
-    //   errorDialog(context, e);
-    // }
+    try {
+      var isLogin = await isAuthenticated(_email, _password);
+      // print(isLogin);
+      if (isLogin) {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => HomePage(uid: userId!)));
+        // Get.to(HomePage(uid: userId!));
+      } else {
+        _fKey.currentState!.reset();
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -67,14 +75,14 @@ class _SigninPageState extends State<SigninPage> {
                           prefixIcon: Icon(Icons.email),
                         ),
                         validator: (String? val) {
-                          if (val!.trim().contains('@')) {
-                            return 'Invalid email';
-                          }
+                          // if (val!.trim().contains('@')) {
+                          //   return 'Invalid email';
+                          // }
                           return null;
                         },
                         onSaved: (val) => _email = val!,
                       ),
-                    ), 
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 30.0,
@@ -89,17 +97,19 @@ class _SigninPageState extends State<SigninPage> {
                           prefixIcon: Icon(Icons.security),
                         ),
                         validator: (String? val) {
-                          if (val!.trim().length <  6) {
+                          if (val!.trim().length < 6) {
                             return 'Password must be at least 6 long';
                           }
                           return null;
                         },
                         onSaved: (val) => _password = val!,
                       ),
-                    ), 
-                    SizedBox(height: 20.0),
+                    ),
+                    const SizedBox(height: 20.0),
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: () {
+                        return _submit(context);
+                      },
                       child: Text(
                         'SIGN IN',
                         style: TextStyle(
@@ -107,12 +117,9 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.0), 
+                    SizedBox(height: 20.0),
                     TextButton(
-                      onPressed: 
-                           () {
-                              
-                            },
+                      onPressed: () {},
                       child: Text(
                         'No account? Sign Up!',
                         style: TextStyle(
@@ -121,7 +128,7 @@ class _SigninPageState extends State<SigninPage> {
                           decoration: TextDecoration.underline,
                         ),
                       ),
-                    ), 
+                    ),
                   ],
                 ),
               ),
@@ -131,4 +138,16 @@ class _SigninPageState extends State<SigninPage> {
       ),
     );
   }
+
+  Future<bool> isAuthenticated(_email, _password) async {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: _email, password: _password);
+    userId = userCredential.user?.uid;
+    if (userId != null) {
+      return true;
+    }
+    return false;
+  }
+
+  String? userId;
 }
