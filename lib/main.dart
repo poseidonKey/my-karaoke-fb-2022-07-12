@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/screens/home_page.dart';
+import 'package:my_karaoke_firebase/screens/message_list_screen.dart';
 import 'package:my_karaoke_firebase/screens/signin_page.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -27,12 +28,12 @@ class MyApp extends StatelessWidget {
       ),
       // home: HomePage(),
       home: Builder(
-        // builder: (context) =>
-        builder: (context) {
-          print(isAuthenticated(context));
-          return HomePage();
-        }
-      ),
+          // builder: (context) =>
+          builder: (context) {
+        print(isAuthenticated(context));
+        return HomePage();
+        // return MessageListScreen();
+      }),
     );
   }
 

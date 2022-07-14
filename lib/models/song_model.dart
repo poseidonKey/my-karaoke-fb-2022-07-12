@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Song extends Equatable {
@@ -24,36 +23,41 @@ class Song extends Equatable {
       required this.songUtubeAddress,
       required this.songETC,
       required this.timestamp});
-
-  factory Song.fromDoc(DocumentSnapshot<Object?> songDoc) {
-    final Song songData = songDoc.data()! as Song;
+  factory Song.fromMap(
+      {required String id, required Map<String, dynamic> map}) {
     return Song(
-      // id: songDoc.data()?.id,
-      id: "id",
-      songID: songData.songID,
-      songOwnerId: songData.songOwnerId,
-      songName: songData.songName,
-      songGYNumber: songData.songGYNumber,
-      songTJNumber: songData.songTJNumber,
-      songJanre: songData.songJanre,
-      songUtubeAddress: songData.songUtubeAddress,
-      songETC: songData.songETC,
-      timestamp: songData.timestamp,
-    );
+        id: id,
+        songOwnerId: map['songOwnerId'] ?? '',
+        songID: map['songID'] ?? '',
+        songName: map['songName'] ?? '',
+        songGYNumber: map['songGYNumber'] ?? '',
+        songTJNumber: map['songTJNumber'] ?? '',
+        songJanre: map['songJanre'] ?? '',
+        songUtubeAddress: map['songUtubeAddress'] ?? '',
+        songETC: map['songETC'] ?? '',
+        timestamp: map["timestamp"] ?? "");
   }
-  
+
+  // factory Song.fromDoc(DocumentSnapshot<Object?> songDoc) {
+  //   final Song songData = songDoc.data()! as Song;
+  //   return Song(
+  //     id: songDoc.id,
+  //     songID: songData.songID,
+  //     songOwnerId: songData.songOwnerId,
+  //     songName: songData.songName,
+  //     songGYNumber: songData.songGYNumber,
+  //     songTJNumber: songData.songTJNumber,
+  //     songJanre: songData.songJanre,
+  //     songUtubeAddress: songData.songUtubeAddress,
+  //     songETC: songData.songETC,
+  //     timestamp: songData.timestamp,
+  //   );
+  // }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'songOwnerId': songOwnerId,
-      "songName": songName,
-      "songGYNumber": songGYNumber,
-      "songTJNumber": songTJNumber,
-      "songJanre": songJanre,
-      "songUtubeAddress": songUtubeAddress,
-      "songETC": songETC,
-      'timestamp': timestamp,
     };
   }
 
@@ -64,12 +68,5 @@ class Song extends Equatable {
   List<Object> get props => [
         id,
         songOwnerId,
-        songName,
-        songGYNumber,
-        songTJNumber,
-        songJanre,
-        songUtubeAddress,
-        songETC,
-        timestamp
       ];
 }
