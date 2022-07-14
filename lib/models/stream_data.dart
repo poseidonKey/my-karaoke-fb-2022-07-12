@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/song_model.dart';
+import 'song_model.dart';
 
 Stream<List<Song>> streamMessages() {
   try {
     //찾고자 하는 컬렉션의 스냅샷(Stream)을 가져온다.
     final Stream<QuerySnapshot> snapshots = FirebaseFirestore.instance
         .collection('songs')
-        .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
+        // .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
+        .doc(Song.userId)
         .collection("userSongs")
         .snapshots();
 

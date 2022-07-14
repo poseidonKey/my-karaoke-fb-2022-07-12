@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/models/song_model.dart';
 import 'package:my_karaoke_firebase/screens/home_page.dart';
 
 class SigninPage extends StatefulWidget {
@@ -22,11 +23,12 @@ class _SigninPageState extends State<SigninPage> {
 
     if (!_fKey.currentState!.validate()) return;
     _fKey.currentState!.save();
-    print('email: $_email, password: $_password');
+    // print('email: $_email, password: $_password');
     try {
       var isLogin = await isAuthenticated(_email, _password);
       // print(isLogin);
       if (isLogin) {
+        Song.userId = userId!;
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => HomePage(uid: userId!)));
         // Get.to(HomePage(uid: userId!));

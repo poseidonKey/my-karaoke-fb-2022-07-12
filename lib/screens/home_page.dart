@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/controller/song_controller.dart';
-import '../controller/stream_data.dart';
+import '../models/stream_data.dart';
 import '../models/song_model.dart';
 
 Future<void> addSong(String _uid) async {
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
     Center(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Song List"),
+          title: const Text("Song List"),
           centerTitle: true,
         ),
         body: Column(
@@ -58,11 +58,6 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    // UserCredential userCredential =
-                    // await FirebaseAuth.instance.signInAnonymously();
-                    // await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    //     email: "b@b.com", password: "123456");
-                    // String? userId = userCredential.user?.uid;
                     await addSong("ALXyp4TcnKeefbKcgq9emzH43z12")
                         .then((value) => print("add song"));
                   },
@@ -71,22 +66,14 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: 20,
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    UserCredential userCredential =
-                        // await FirebaseAuth.instance.signInAnonymously();
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                            email: "b@b.com", password: "123456");
-                    String? userId = userCredential.user?.uid;
-                    // print(userId);
-
-                    // await getAllSongs(userId!).then((value) => print("load song"));
-                  },
-                  child: Text("Load data"),
-                ),
+                Text("Total 20곡"),
+                // ElevatedButton(
+                //   onPressed: () {},
+                //   child: const Text("Load data"),
+                // ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Expanded(

@@ -37,6 +37,7 @@ class Song extends Equatable {
         songETC: map['songETC'] ?? '',
         timestamp: map["timestamp"] ?? "");
   }
+  static String? userId;
 
   // factory Song.fromDoc(DocumentSnapshot<Object?> songDoc) {
   //   final Song songData = songDoc.data()! as Song;
