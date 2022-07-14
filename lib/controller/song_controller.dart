@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/models/stream_data.dart';
 import '../models/song_model.dart';
 
 class SongController extends GetxController {
@@ -7,7 +8,11 @@ class SongController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getAllSongs("ALXyp4TcnKeefbKcgq9emzH43z12");
+    var songs=streamMessages();
+    songs.forEach((element) { 
+      allSongs.addAll(element);
+    });
+    // getAllSongs("ALXyp4TcnKeefbKcgq9emzH43z12");
   }
 
   Future<void> getAllSongs(String userId) async {

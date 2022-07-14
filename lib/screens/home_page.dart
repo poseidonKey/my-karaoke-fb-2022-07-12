@@ -58,15 +58,21 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    await addSong("ALXyp4TcnKeefbKcgq9emzH43z12")
+                    await addSong(Song.userId!)
                         .then((value) => print("add song"));
                   },
-                  child: Text("add Data"),
+                  child: const Text("add Data"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
-                Text("Total 20곡"),
+                const Text("total 20 곡"),
+                // Obx(
+                //   () {
+                //     // return Text("total ${songController.allSongs.length} 곡");
+                //     return const Text("total 20 곡");
+                //   },
+                // ),
                 // ElevatedButton(
                 //   onPressed: () {},
                 //   child: const Text("Load data"),
@@ -103,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                                   leading: const Icon(Icons.favorite),
                                   title: Text(messages[index].songName),
                                   subtitle: Text(messages[index].songJanre),
-                                  trailing: Icon(Icons.edit),
+                                  trailing: const Icon(Icons.edit),
                                 ),
                               );
                             },
