@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'song_model.dart';
 
 Stream<List<Song>> streamMessages() {
@@ -18,7 +17,7 @@ Stream<List<Song>> streamMessages() {
       List<Song> messages =
           []; //querySnapshot을 message로 옮기기 위해 List<MessageModel> 선언
       querySnapshot.docs.forEach((element) {
-        print(">>>>>>>>> ${element.data()}");
+        // print(">>>>>>>>> ${element.data()}");
         //해당 컬렉션에 존재하는 모든 docs를 순회하며 messages 에 데이터를 추가한다.
         messages.add(Song.fromMap(
             id: element.id, map: element.data() as Map<String, dynamic>));

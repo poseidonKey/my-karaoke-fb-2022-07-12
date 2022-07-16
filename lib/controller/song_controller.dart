@@ -5,14 +5,25 @@ import '../models/song_model.dart';
 
 class SongController extends GetxController {
   var allSongs = <Song>[].obs;
+  List<Song> tmp = [];
   @override
   void onInit() {
     super.onInit();
-    var songs=streamMessages();
-    songs.forEach((element) { 
-      allSongs.addAll(element);
+    var songs = streamMessages();
+    songs.forEach((element) {
+      tmp.addAll(element);
+      // print(element[1].id);
+      // print(allSongs[1].id);
+      // allSongs.add(element);
     });
+    dataCompleted();
     // getAllSongs("ALXyp4TcnKeefbKcgq9emzH43z12");
+  }
+
+  void dataCompleted() {
+    allSongs.clear();
+    allSongs = RxList(tmp);
+    update();
   }
 
   Future<void> getAllSongs(String userId) async {

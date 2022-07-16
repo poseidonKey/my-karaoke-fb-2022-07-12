@@ -41,8 +41,9 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+var songController = Get.put(SongController());
+
 class _HomePageState extends State<HomePage> {
-  var songController = Get.put(SongController());
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     Center(
@@ -66,7 +67,10 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   width: 20,
                 ),
-                const Text("total 20 곡"),
+                // const Text("total 20 곡"),
+                Obx(
+                  () => Text("전체 ${songController.allSongs.length.toString()} 곡"),
+                ),
                 // Obx(
                 //   () {
                 //     // return Text("total ${songController.allSongs.length} 곡");
