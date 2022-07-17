@@ -18,9 +18,14 @@ class SongController extends GetxController {
 
   @override
   void onInit() async {
-    await getDetailsList("ALXyp4TcnKeefbKcgq9emzH43z12");
-    // ever(allSongs, () => print("ever"));
     super.onInit();
+    await getDetailsList("ALXyp4TcnKeefbKcgq9emzH43z12");
+    delItem();
+    // ever(allSongs, () => print("ever"));
+  }
+
+  void delItem() {
+    allSongs.removeAt(0);
   }
 
   Future getDetailsList(String uid) async {
@@ -45,9 +50,9 @@ class SongController extends GetxController {
         // print("after : ${detail.id}");
         i++;
         allSongs.add(detail);
-        update();
+        // update();
       }
-      allSongs.removeAt(0);
+      // allSongs.removeAt(0);
 
       // allSongs.addAll(RxList(data.docs.map((document) {
       //   // print(document);
