@@ -2,6 +2,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/screens/home_page.dart';
+import 'package:my_karaoke_firebase/screens/home_page_test.dart';
 import 'package:my_karaoke_firebase/screens/signin_page.dart';
 import 'firebase_options.dart';
 // import 'models/my_song_data_fb_model.dart';
@@ -30,16 +32,16 @@ class MyApp extends StatelessWidget {
       //       // getDetailsList("ALXyp4TcnKeefbKcgq9emzH43z12");
       //     },
       //     child: const Text("load")),
-      // home: HomePage(),
-      home: Builder(
-          // builder: (context) =>
-          builder: (context) {
-        // print(isAuthenticated(context));
-        // return HomePage();
-        return const SigninPage();
-        // return MessageListScreen();
-      }),
+      home: HomePageTest(),
+      // home: Builder(
+      //     // builder: (context) =>
+      //     builder: (context) {
+      //   // print(isAuthenticated(context));
+      //   // return const HomePage(uid: "ALXyp4TcnKeefbKcgq9emzH43z12");
+      //   return HomePageTest();
+      //   // return const SigninPage();
+      //   // return MessageListScreen();
+      // }),
     );
   }
-
 }

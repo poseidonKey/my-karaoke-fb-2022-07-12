@@ -3,12 +3,24 @@ import 'package:get/get.dart';
 import '../models/song_model.dart';
 
 class SongController extends GetxController {
-  var allSongs = <Song>[].obs;
+  var allSongs = <Song>[
+    Song(
+      "aa",
+      "aa",
+      "aa",
+      "aa",
+      "aa",
+      "aa",
+      "aa",
+      "aa",
+    )
+  ].obs;
 
   @override
   void onInit() async {
-    super.onInit();
     await getDetailsList("ALXyp4TcnKeefbKcgq9emzH43z12");
+    // ever(allSongs, () => print("ever"));
+    super.onInit();
   }
 
   Future getDetailsList(String uid) async {
@@ -20,20 +32,34 @@ class SongController extends GetxController {
           .collection("userSongs")
           .get();
       // print("${data}");
+      // details = data.docs.map((document) {
+      // allSongs.clear();
       details = data.docs.map((document) {
         // print(document);
         return Song.fromMap(document);
       }).toList();
       int i = 0;
-      // print(">>>>>>>>>>>>>>> $details");
       for (var detail in details) {
         // print("data : ${data.docs[i].id}");
         detail.id = data.docs[i].id;
         // print("after : ${detail.id}");
         i++;
-        allSongs.clear();
-        allSongs(RxList(details));
+        allSongs.add(detail);
+        update();
       }
+      allSongs.removeAt(0);
+
+      // allSongs.addAll(RxList(data.docs.map((document) {
+      //   // print(document);
+      //   return Song.fromMap(document);
+      // }).toList()));
+      // print(">>>>>>>>>>>>>>> $details");
+      // return details;
+      // if (details != null)
+      // else
+      //   return [];
+      // allSongs.clear();
+      // allSongs.value = RxList(details);
     } catch (e) {
       print(e);
     }
