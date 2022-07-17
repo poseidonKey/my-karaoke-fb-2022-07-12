@@ -33,6 +33,8 @@ Future<void> addSong(String _uid) async {
   }
 }
 
+var songController = Get.put(SongController());
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.uid}) : super(key: key);
   final String uid;
@@ -40,8 +42,6 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-
-var songController = Get.put(SongController());
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
@@ -69,59 +69,29 @@ class _HomePageState extends State<HomePage> {
                 ),
                 // const Text("total 20 곡"),
                 Obx(
-                  () => Text("전체 ${songController.allSongs.length.toString()} 곡"),
+                  () =>
+                      Text("전체 ${songController.allSongs.length.toString()} 곡"),
                 ),
-                // Obx(
-                //   () {
-                //     // return Text("total ${songController.allSongs.length} 곡");
-                //     return const Text("total 20 곡");
-                //   },
-                // ),
-                // ElevatedButton(
-                //   onPressed: () {},
-                //   child: const Text("Load data"),
-                // ),
               ],
             ),
             const SizedBox(
               height: 5,
             ),
             Expanded(
-              child: StreamBuilder<List<Song>>(
-                stream: streamMessages(), //중계하고 싶은 Stream을 넣는다.
-                builder: (context, asyncSnapshot) {
-                  if (!asyncSnapshot.hasData) {
-                    //데이터가 없을 경우 로딩위젯을 표시한다.
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (asyncSnapshot.hasError) {
-                    return const Center(
-                      child: Text('오류가 발생했습니다.'),
-                    );
-                  } else {
-                    List<Song> messages =
-                        asyncSnapshot.data!; //비동기 데이터가 존재할 경우 리스트뷰 표시
-                    return Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: messages.length,
-                            itemBuilder: (context, index) {
-                              return Dismissible(
-                                key: Key(messages[index].id),
-                                child: ListTile(
-                                  leading: const Icon(Icons.favorite),
-                                  title: Text(messages[index].songName),
-                                  subtitle: Text(messages[index].songJanre),
-                                  trailing: const Icon(Icons.edit),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  }
+              child: ListView.builder(
+                // itemCount: songController.allSongs.length,
+                itemCount: 24,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: const Icon(Icons.favorite),
+                    title: Obx(() => Text(
+                        "곡명 :${songController.allSongs[index].songName}")),
+                    // );
+
+                    subtitle: Obx(
+                        () => Text(songController.allSongs[index].songJanre)),
+                    trailing: const Icon(Icons.edit),
+                  );
                 },
               ),
             )

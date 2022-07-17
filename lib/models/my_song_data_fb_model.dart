@@ -9,21 +9,17 @@ class MySongDataFirebase {
   String songJanre;
   String songUtubeAddress;
   String songETC;
-  Timestamp createTime;
-  bool songFavorite;
 
   MySongDataFirebase(
-      this.id,
-      this.songOwnerId,
-      this.songName,
-      this.songGYNumber,
-      this.songTJNumber,
-      this.songJanre,
-      this.songUtubeAddress,
-      this.songETC,
-      this.createTime,
-      this.songFavorite
-      );
+    this.id,
+    this.songOwnerId,
+    this.songName,
+    this.songGYNumber,
+    this.songTJNumber,
+    this.songJanre,
+    this.songUtubeAddress,
+    this.songETC,
+  );
 
   MySongDataFirebase.fromMap(QueryDocumentSnapshot snapshot)
       : id = snapshot.id,
@@ -33,9 +29,7 @@ class MySongDataFirebase {
         songTJNumber = snapshot["songTJNumber"],
         songJanre = snapshot["songJanre"],
         songUtubeAddress = snapshot["songUtubeAddress"],
-        songETC = snapshot["songETC"],
-        createTime = snapshot["createTime"],
-        songFavorite = snapshot["songFavorite"];
+        songETC = snapshot["songETC"];
 
   Map<String, dynamic> toMap() {
     return {
@@ -47,8 +41,6 @@ class MySongDataFirebase {
       "songJanre": songJanre,
       "songUtubeAddress": songUtubeAddress,
       "songETC": songETC,
-      "createTime": createTime,
-      "songFavorite": songFavorite,
     };
   }
 }

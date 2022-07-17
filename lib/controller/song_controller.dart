@@ -1,56 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/models/stream_data.dart';
 import '../models/song_model.dart';
 
 class SongController extends GetxController {
   var allSongs = <Song>[].obs;
-  List<Song> tmp = [];
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    var songs = streamMessages();
-    songs.forEach((element) {
-      tmp.addAll(element);
-      // print(element[1].id);
-      // print(allSongs[1].id);
-      // allSongs.add(element);
-    });
-    dataCompleted();
-    // getAllSongs("ALXyp4TcnKeefbKcgq9emzH43z12");
+    await getDetailsList("ALXyp4TcnKeefbKcgq9emzH43z12");
   }
 
-  void dataCompleted() {
-    allSongs.clear();
-    allSongs = RxList(tmp);
-    update();
-  }
-
-  Future<void> getAllSongs(String userId) async {
+  Future getDetailsList(String uid) async {
+    List<Song> details = [];
     try {
-      QuerySnapshot userSongsSnapshot = await FirebaseFirestore.instance
+      var data = await FirebaseFirestore.instance
           .collection('songs')
-          .doc(userId)
+          .doc(uid)
           .collection("userSongs")
-          // .orderBy("timestamp", descending: true)
           .get();
-      // List<Song> songs = userSongsSnapshot.docs.map(
-      //   (songDoc) {
-      //     // Map<String, dynamic> song = songDoc.data() as Map<String, dynamic>;
-      //     // return fromMap(song);
-      //     // return song;
-      //     return Song.fromDoc(songDoc);
-      //   },
-      // ).toList();
-      // Song.fromDoc(songs[0].toString());
-      // print("songs 0 : ${songs[0].toString()}");
-      // print(">>>>길이 : ${songs.length}");
-      // // for (var i = 0; i < songs.length; i++) {
-      // //   Map<String, dynamic> t = songs[i] as Map<String, dynamic>;
-      // //   Song song = fromMap(t);
-      // //   allSongs.add(song);
-      // // }
-      // allSongs = RxList(songs);
+      // print("${data}");
+      details = data.docs.map((document) {
+        // print(document);
+        return Song.fromMap(document);
+      }).toList();
+      int i = 0;
+      // print(">>>>>>>>>>>>>>> $details");
+      for (var detail in details) {
+        // print("data : ${data.docs[i].id}");
+        detail.id = data.docs[i].id;
+        // print("after : ${detail.id}");
+        i++;
+        allSongs.clear();
+        allSongs(RxList(details));
+      }
     } catch (e) {
       print(e);
     }

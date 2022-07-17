@@ -65,8 +65,8 @@ class _MessageListScreenState extends State<MessageListScreen> {
         querySnapshot.docs.forEach((element) {
           print(">>>>>>>>> ${element.data()}");
           //해당 컬렉션에 존재하는 모든 docs를 순회하며 messages 에 데이터를 추가한다.
-          messages.add(Song.fromMap(
-              id: element.id, map: element.data() as Map<String, dynamic>));
+          // messages.add(Song.fromMap(
+          //     id: element.id, map: element.data() as Map<String, dynamic>));
         });
         return messages; //QuerySnapshot에서 List<MessageModel> 로 변경이 됐으니 반환
       }); //Stream<QuerySnapshot> 에서 Stream<List<MessageModel>>로 변경되어 반환됨

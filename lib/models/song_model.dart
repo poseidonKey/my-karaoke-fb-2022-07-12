@@ -1,45 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Song extends Equatable {
-  final String id;
-  final String songOwnerId;
-  final String songID;
-  final String songName;
-  final String songGYNumber;
-  final String songTJNumber;
-  final String songJanre;
-  final String songUtubeAddress;
-  final String songETC;
-  final String timestamp;
+  String? id;
+  String songOwnerId;
+  String songName;
+  String songGYNumber;
+  String songTJNumber;
+  String songJanre;
+  String songUtubeAddress;
+  String songETC;
 
-  const Song(
-      {required this.id,
-      required this.songOwnerId,
-      required this.songID,
-      required this.songName,
-      required this.songGYNumber,
-      required this.songTJNumber,
-      required this.songJanre,
-      required this.songUtubeAddress,
-      required this.songETC,
-      required this.timestamp});
-  factory Song.fromMap(
-      {required String id, required Map<String, dynamic> map}) {
-    return Song(
-        id: id,
-        songOwnerId: map['songOwnerId'] ?? '',
-        songID: map['songID'] ?? '',
-        songName: map['songName'] ?? '',
-        songGYNumber: map['songGYNumber'] ?? '',
-        songTJNumber: map['songTJNumber'] ?? '',
-        songJanre: map['songJanre'] ?? '',
-        songUtubeAddress: map['songUtubeAddress'] ?? '',
-        songETC: map['songETC'] ?? '',
-        timestamp: map["timestamp"] ?? "");
-  }
-
-
+  Song(
+    this.id,
+    this.songOwnerId,
+    this.songName,
+    this.songGYNumber,
+    this.songTJNumber,
+    this.songJanre,
+    this.songUtubeAddress,
+    this.songETC,
+  );
   static String? userId;
+  Song.fromMap(QueryDocumentSnapshot snapshot)
+      : id = snapshot.id,
+        songOwnerId = snapshot["songOwnerId"],
+        songName = snapshot["songName"],
+        songGYNumber = snapshot["songGYNumber"],
+        songTJNumber = snapshot["songTJNumber"],
+        songJanre = snapshot["songJanre"],
+        songUtubeAddress = snapshot["songUtubeAddress"],
+        songETC = snapshot["songETC"];
 
   // factory Song.fromDoc(DocumentSnapshot<Object?> songDoc) {
   //   final Song songData = songDoc.data()! as Song;
@@ -69,7 +60,7 @@ class Song extends Equatable {
 
   @override
   List<Object> get props => [
-        id,
+        id!,
         songOwnerId,
       ];
 }
