@@ -37,7 +37,7 @@ class EditDeleteNotes extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  todo.todoList[index].task,
+                                  todo.todoList[index].songName,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
@@ -47,12 +47,20 @@ class EditDeleteNotes extends StatelessWidget {
                                     IconButton(
                                         onPressed: () async {
                                           await addEditDelete(
-                                              todo,
-                                              'Edit',
-                                              todo.todoList[index].id,
-                                              todo.todoList[index].task);
+                                            todo,
+                                            'Edit',
+                                            todo.todoList[index].id,
+                                            todo.todoList[index].songName,
+                                            todo.todoList[index].songGYNumber,
+                                            todo.todoList[index].songTJNumber,
+                                            todo.todoList[index].songJanre,
+                                            todo.todoList[index]
+                                                .songUtubeAddress,
+                                            todo.todoList[index].songETC,
+                                            !todo.todoList[index].songFavorite,
+                                          );
                                           Get.snackbar(
-                                              '${todo.todoList[index].task}',
+                                              '${todo.todoList[index].songName}',
                                               "Updated",
                                               snackPosition:
                                                   SnackPosition.BOTTOM,
@@ -71,7 +79,7 @@ class EditDeleteNotes extends StatelessWidget {
                                         onPressed: () {
                                           todo.delete(todo.todoList[index].id);
                                           Get.snackbar(
-                                              '${todo.todoList[index].task}',
+                                              '${todo.todoList[index].songName}',
                                               "Successfully deleted",
                                               snackPosition:
                                                   SnackPosition.BOTTOM,
@@ -96,31 +104,51 @@ class EditDeleteNotes extends StatelessWidget {
         });
   }
 
-  addEditDelete(ToDoController toDoController, String title, String id,
-      String task) async {
-    if (task.isNotEmpty) {
-      _textEditingController.text = task;
+  addEditDelete(
+    ToDoController toDoController,
+    String title,
+    String id,
+    String songName,
+    String songGYNumber,
+    String songTJNumber,
+    String songJanre,
+    String songUtubeAddress,
+    String songETC,
+    bool songFavorite,
+  ) async {
+    if (songName.isNotEmpty) {
+      _textEditingController.text = songName;
     }
     await Get.defaultDialog(
-        title: title,
-        content: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _textEditingController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Insert valid input";
-                    }
-                    return null;
-                  },
-                ),
-                ElevatedButton(
-                    onPressed: () async => await todo.addToD(
-                        _textEditingController.text.trim(), false, id),
-                    child: Text("Update"))
-              ],
-            )));
+      title: title,
+      content: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _textEditingController,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Insert valid input";
+                }
+                return null;
+              },
+            ),
+            ElevatedButton(
+              onPressed: () async => await todo.addToData(
+                  _textEditingController.text.trim(),
+                  id,
+                  "곡명 : 테스트",
+                  "1111",
+                  "2222",
+                  "잉이이ㅣ이이",
+                  "기타사항",
+                  false),
+              child: Text("Update"),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

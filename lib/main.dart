@@ -28,7 +28,7 @@ class App extends StatelessWidget {
     );
 
     return GetMaterialApp(
-      title: 'To-Do App',
+      title: 'Song-manage App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.purple),
       initialRoute:
