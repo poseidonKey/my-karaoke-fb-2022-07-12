@@ -18,10 +18,10 @@ class ToDoController extends GetxController {
     bool songFavorite,
   ) async {
     await FirebaseFirestore.instance
-        .collection('todos')
+        .collection('songs')
         // .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
         .doc(SongModel.userId)
-        .collection("todoDatas")
+        .collection("songDatas")
         .doc((id != '' ? id : null)) //자동 생성
         .set(
       {
@@ -40,9 +40,9 @@ class ToDoController extends GetxController {
   Future<void> getData() async {
     try {
       QuerySnapshot _taskSnap = await FirebaseFirestore.instance
-          .collection('todos')
+          .collection('songs')
           .doc(SongModel.userId)
-          .collection("todoDatas")
+          .collection("songDatas")
           .orderBy("songName")
           .get();
       todoList.clear();
@@ -69,18 +69,18 @@ class ToDoController extends GetxController {
 
   void delete(String id) {
     FirebaseFirestore.instance
-        .collection('todos')
+        .collection('songs')
         .doc(SongModel.userId)
-        .collection("todoDatas")
+        .collection("songDatas")
         .doc(id)
         .delete();
   }
 
   Future queryData(String q) async {
     return FirebaseFirestore.instance
-        .collection('todos')
+        .collection('songs')
         .doc(SongModel.userId)
-        .collection("todoDatas")
+        .collection("songDatas")
         .where('task', isGreaterThanOrEqualTo: q)
         .get();
   }

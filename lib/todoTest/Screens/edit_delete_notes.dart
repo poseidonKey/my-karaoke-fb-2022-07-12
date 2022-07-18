@@ -7,7 +7,7 @@ class EditDeleteNotes extends StatelessWidget {
   EditDeleteNotes({Key? key}) : super(key: key);
   ToDoController todo = Get.put(ToDoController());
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ToDoController>(
@@ -19,6 +19,7 @@ class EditDeleteNotes extends StatelessWidget {
             backgroundColor: const Color.fromRGBO(194, 184, 255, 1),
             appBar: AppBar(
               centerTitle: true,
+              leading: const Text(""),
               backgroundColor: const Color.fromRGBO(54, 115, 125, 1),
               title: const Text("Edit and Delete To-Do"),
             ),

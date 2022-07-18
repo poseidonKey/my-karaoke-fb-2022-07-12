@@ -32,6 +32,11 @@ class AllNotes extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {},
+                  icon: const Icon(Icons.favorite_outline_rounded),
+                  tooltip: "Favorite",
+                ),
+                IconButton(
+                  onPressed: () {},
                   icon: const Icon(Icons.data_array_outlined),
                   tooltip: "MySQL",
                 ),
@@ -39,6 +44,7 @@ class AllNotes extends StatelessWidget {
                   onPressed: () async {
                     return isSignOut();
                   },
+                  tooltip: "Logout",
                   icon: const Icon(Icons.exit_to_app_outlined),
                 )
               ],
