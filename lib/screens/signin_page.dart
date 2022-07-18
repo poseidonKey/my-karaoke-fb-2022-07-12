@@ -1,18 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/models/song_model.dart';
-import 'package:my_karaoke_firebase/screens/home_page.dart';
+import 'package:my_karaoke_firebase/todoTest/Screens/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../todoTest/Model/song_model.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
-  static const String routeName = 'signin-page';
+   static const String routeName = 'signin-page';
 
   @override
-  _SigninPageState createState() => _SigninPageState();
+  SigninPageState createState() => SigninPageState();
 }
 
-class _SigninPageState extends State<SigninPage> {
+class SigninPageState extends State<SigninPage> {
   final _fKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   late String _email, _password;
@@ -28,9 +29,9 @@ class _SigninPageState extends State<SigninPage> {
       var isLogin = await isAuthenticated(_email, _password);
       // print(isLogin);
       if (isLogin) {
-        Song.userId = userId!;
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => HomePage(uid: userId!)));
+        Get.to(() => HomePage());
+        // Navigator.of(context).push(
+        //     MaterialPageRoute(builder: (context) => HomePage(uid: userId!)));
         // Get.to(HomePage(uid: userId!));
       } else {
         _fKey.currentState!.reset();
@@ -51,14 +52,14 @@ class _SigninPageState extends State<SigninPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Your Songs',
                 style: TextStyle(
                   fontSize: 45,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               Form(
                 key: _fKey,
                 autovalidateMode: autovalidateMode,
@@ -70,7 +71,7 @@ class _SigninPageState extends State<SigninPage> {
                         vertical: 10.0,
                       ),
                       child: TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           filled: true,
                           labelText: 'Email',
@@ -92,7 +93,7 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                       child: TextFormField(
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           filled: true,
                           labelText: 'Password',
@@ -112,17 +113,17 @@ class _SigninPageState extends State<SigninPage> {
                       onPressed: () {
                         return _submit(context);
                       },
-                      child: Text(
+                      child: const Text(
                         'SIGN IN',
                         style: TextStyle(
                           fontSize: 20.0,
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     TextButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'No account? Sign Up!',
                         style: TextStyle(
                           fontSize: 18.0,
@@ -141,15 +142,18 @@ class _SigninPageState extends State<SigninPage> {
     );
   }
 
+  String? userId;
   Future<bool> isAuthenticated(_email, _password) async {
     UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: _email, password: _password);
     userId = userCredential.user?.uid;
     if (userId != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      // await prefs.setString("userId", "ALXyp4TcnKeefbKcgq9emzH43z12");
+      await prefs.setString("userId", userId!);
+      SongModel.userId = userId;
       return true;
     }
     return false;
   }
-
-  String? userId;
 }

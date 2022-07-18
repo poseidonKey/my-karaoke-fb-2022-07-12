@@ -3,24 +3,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/screens/signin_page.dart';
 import 'package:my_karaoke_firebase/todoTest/Binding/controller_binding.dart';
-import 'package:my_karaoke_firebase/todoTest/OnBoarding/views.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'firebase_options.dart';
 
-int? initScreen;
+String? initScreen;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  initScreen = await prefs.getInt("initScreen");
-  await prefs.setInt("initScreen", 1);
-  print('initScreen ${initScreen}');
-  runApp(App());
+  initScreen = await prefs.getString("userId"); // .getInt("initScreen");
+  print('initScreen $initScreen');
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -31,10 +31,12 @@ class App extends StatelessWidget {
       title: 'Song-manage App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.purple),
-      initialRoute:
-          initScreen == 0 || initScreen == null ? 'OnBoardingPage' : 'HomePage',
+      initialRoute: initScreen == "" || initScreen == null
+          ? 'OnBoardingPage'
+          : 'HomePage',
       routes: {
-        'OnBoardingPage': (context) => OnboardingPage(),
+        // 'OnBoardingPage': (context) => OnboardingPage(),
+        'OnBoardingPage': (context) => const SigninPage(),
         'HomePage': (context) => HomePage(),
       },
       initialBinding: ControllerBinding(),

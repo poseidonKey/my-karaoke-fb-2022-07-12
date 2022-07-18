@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       //       // getDetailsList("ALXyp4TcnKeefbKcgq9emzH43z12");
       //     },
       //     child: const Text("load")),
-      home: HomePageTest(),
+      // home: HomePageTest(),
       // home: Builder(
       //     // builder: (context) =>
       //     builder: (context) {

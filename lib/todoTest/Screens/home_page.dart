@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -14,10 +13,15 @@ class HomePage extends StatelessWidget {
   BNBController bnbController = Get.put(BNBController());
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Obx(
+      () => Scaffold(
         body: IndexedStack(
           index: bnbController.tabIndex.value,
-          children: [AllNotes(), SearchNotes(), EditDeleteNotes()],
+          children: [
+            AllNotes(),
+            SearchNotes(),
+            EditDeleteNotes(),
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.lightBlueAccent.shade100,
@@ -26,14 +30,16 @@ class HomePage extends StatelessWidget {
           elevation: 3,
           onTap: bnbController.changeTabIndex,
           currentIndex: bnbController.tabIndex.value,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.noteSticky), label: 'All To-Do'),
+                icon: Icon(FontAwesomeIcons.noteSticky), label: '모든 곡'),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.search), label: 'Search To-Do'),
+                icon: Icon(FontAwesomeIcons.magnifyingGlass), label: '곡 찾기'),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.edit), label: 'Edit To-Do'),
+                icon: Icon(FontAwesomeIcons.penToSquare), label: '곡 정보 수정'),
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

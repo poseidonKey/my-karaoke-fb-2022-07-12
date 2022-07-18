@@ -1,15 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/screens/signin_page.dart';
 import 'package:my_karaoke_firebase/todoTest/Controller/todo_controller.dart';
+import 'package:my_karaoke_firebase/todoTest/Model/song_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AllNotes extends StatelessWidget {
   AllNotes({
     Key? key,
   }) : super(key: key);
-  ToDoController todo = Get.put(ToDoController());
+  final ToDoController todo = Get.put(ToDoController());
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ToDoController>(
@@ -22,8 +27,21 @@ class AllNotes extends StatelessWidget {
             appBar: AppBar(
               leading: Text(
                 "총 ${todo.todoList.length.toString()} 곡",
-                style: const TextStyle(fontSize: 18, color: Colors.yellow),
+                style: const TextStyle(fontSize: 16, color: Colors.yellow),
               ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.data_array_outlined),
+                  tooltip: "MySQL",
+                ),
+                IconButton(
+                  onPressed: () async {
+                    return isSignOut();
+                  },
+                  icon: const Icon(Icons.exit_to_app_outlined),
+                )
+              ],
               centerTitle: true,
               backgroundColor: const Color.fromRGBO(54, 115, 125, 1),
               title: const Text("나의 애창곡 관리"),
@@ -112,7 +130,9 @@ class AllNotes extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               onPressed: () async {
-                await addEditDelete(todo, 'Add To Do', '');
+                await addEditDelete(todo, '곡 추가하기', "").then(
+                  (value) => Get.back(),
+                );
                 Get.snackbar('Great!', "추가 됐습니다.",
                     snackPosition: SnackPosition.BOTTOM,
                     backgroundColor: Colors.teal.shade100,
@@ -144,21 +164,32 @@ class AllNotes extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              onPressed: () async => await toDoController.addToData(
-                _textEditingController.text.trim(),
-                id,
-                "33333",
-                "1111",
-                "발라드",
-                "잉이이ㅣ이이",
-                "기타사항",
-                false,
-              ),
-              child: const Text("Save"),
+              onPressed: () async {
+                await toDoController.addToData(
+                  _textEditingController.text.trim(),
+                  id,
+                  "33333",
+                  "1111",
+                  "발라드",
+                  "잉이이ㅣ이이",
+                  "기타사항",
+                  false,
+                );
+              },
+              child: const Text("저장!"),
             )
           ],
         ),
       ),
     );
+  }
+
+  Future<void> isSignOut() async {
+    FirebaseAuth.instance.signOut();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // await prefs.setString("userId", "ALXyp4TcnKeefbKcgq9emzH43z12");
+    await prefs.remove("userId");
+    SongModel.userId = "";
+    Get.to(() => const SigninPage()); //   .to(const SigninPage());
   }
 }

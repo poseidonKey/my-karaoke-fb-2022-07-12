@@ -19,25 +19,31 @@ class ToDoController extends GetxController {
   ) async {
     await FirebaseFirestore.instance
         .collection('todos')
-        .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
+        // .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
+        .doc(SongModel.userId)
         .collection("todoDatas")
         .doc((id != '' ? id : null)) //자동 생성
-        .set({
-      "songName": songName,
-      "songGYNumber": songGYNumber,
-      "songTJNumber": songTJNumber,
-      "songJanre": songJanre,
-      "songUtubeAddress": songUtubeAddress,
-      "songETC": songETC,
-      "songFavorite": songFavorite,
-    }, SetOptions(merge: true)).then((value) => Get.back());
+        .set(
+      {
+        "songName": songName,
+        "songGYNumber": songGYNumber,
+        "songTJNumber": songTJNumber,
+        "songJanre": songJanre,
+        "songUtubeAddress": songUtubeAddress,
+        "songETC": songETC,
+        "songFavorite": songFavorite,
+      },
+      SetOptions(merge: true),
+    ).then(
+      (value) => Get.back(),
+    );
   }
 
   Future<void> getData() async {
     try {
       QuerySnapshot _taskSnap = await FirebaseFirestore.instance
           .collection('todos')
-          .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
+          .doc(SongModel.userId)
           .collection("todoDatas")
           .orderBy("songName")
           .get();
@@ -59,14 +65,14 @@ class ToDoController extends GetxController {
       isLoading = false;
       update();
     } catch (e) {
-      Get.snackbar("Error", "${e.toString()}");
+      Get.snackbar("Error", "$e.toString()");
     }
   }
 
   void delete(String id) {
     FirebaseFirestore.instance
         .collection('todos')
-        .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
+        .doc(SongModel.userId)
         .collection("todoDatas")
         .doc(id)
         .delete();
@@ -75,7 +81,7 @@ class ToDoController extends GetxController {
   Future queryData(String q) async {
     return FirebaseFirestore.instance
         .collection('todos')
-        .doc("ALXyp4TcnKeefbKcgq9emzH43z12")
+        .doc(SongModel.userId)
         .collection("todoDatas")
         .where('task', isGreaterThanOrEqualTo: q)
         .get();

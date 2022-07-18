@@ -16,90 +16,85 @@ class EditDeleteNotes extends StatelessWidget {
         builder: (todo) {
           todo.getData();
           return Scaffold(
-            backgroundColor: Color.fromRGBO(194, 184, 255, 1),
+            backgroundColor: const Color.fromRGBO(194, 184, 255, 1),
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: Color.fromRGBO(54, 115, 125, 1),
-              title: Text("Edit and Delete To-Do"),
+              backgroundColor: const Color.fromRGBO(54, 115, 125, 1),
+              title: const Text("Edit and Delete To-Do"),
             ),
             body: Center(
-                child: todo.isLoading
-                    ? SizedBox(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListView.builder(
-                        itemCount: todo.todoList.length,
-                        itemBuilder: (BuildContext, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 30, right: 30, top: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  todo.todoList[index].songName,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () async {
-                                          await addEditDelete(
-                                            todo,
-                                            'Edit',
-                                            todo.todoList[index].id,
-                                            todo.todoList[index].songName,
-                                            todo.todoList[index].songGYNumber,
-                                            todo.todoList[index].songTJNumber,
-                                            todo.todoList[index].songJanre,
-                                            todo.todoList[index]
-                                                .songUtubeAddress,
-                                            todo.todoList[index].songETC,
-                                            !todo.todoList[index].songFavorite,
-                                          );
-                                          Get.snackbar(
-                                              '${todo.todoList[index].songName}',
-                                              "Updated",
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM,
-                                              backgroundColor:
-                                                  Colors.teal.shade100,
-                                              margin: EdgeInsets.only(
-                                                  bottom: 18,
-                                                  left: 10,
-                                                  right: 10));
-                                        },
-                                        icon: Icon(
-                                          FontAwesomeIcons.edit,
-                                          color: Colors.blue,
-                                        )),
-                                    IconButton(
-                                        onPressed: () {
-                                          todo.delete(todo.todoList[index].id);
-                                          Get.snackbar(
-                                              '${todo.todoList[index].songName}',
-                                              "Successfully deleted",
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM,
-                                              backgroundColor:
-                                                  Colors.teal.shade100,
-                                              margin: EdgeInsets.only(
-                                                  bottom: 18,
-                                                  left: 10,
-                                                  right: 10));
-                                        },
-                                        icon: Icon(
-                                          FontAwesomeIcons.deleteLeft,
-                                          color: Colors.pink,
-                                        ))
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        })),
+              child: todo.isLoading
+                  ? const SizedBox(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      itemCount: todo.todoList.length,
+                      itemBuilder: (buildContext, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 30, right: 30, top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                todo.todoList[index].songName,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                      onPressed: () async {
+                                        await addEditDelete(
+                                          todo,
+                                          'Edit',
+                                          todo.todoList[index].id,
+                                          todo.todoList[index].songName,
+                                          todo.todoList[index].songGYNumber,
+                                          todo.todoList[index].songTJNumber,
+                                          todo.todoList[index].songJanre,
+                                          todo.todoList[index].songUtubeAddress,
+                                          todo.todoList[index].songETC,
+                                          !todo.todoList[index].songFavorite,
+                                        );
+                                        Get.snackbar(
+                                          '$todo.todoList[index].songName',
+                                          "Updated",
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.teal.shade100,
+                                          margin: const EdgeInsets.only(
+                                              bottom: 18, left: 10, right: 10),
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        FontAwesomeIcons.edit,
+                                        color: Colors.blue,
+                                      )),
+                                  IconButton(
+                                      onPressed: () {
+                                        todo.delete(todo.todoList[index].id);
+                                        Get.snackbar(
+                                            '$todo.todoList[index].songName',
+                                            "Successfully deleted",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                            backgroundColor:
+                                                Colors.teal.shade100,
+                                            margin: const EdgeInsets.only(
+                                                bottom: 18,
+                                                left: 10,
+                                                right: 10));
+                                      },
+                                      icon: const Icon(
+                                        FontAwesomeIcons.deleteLeft,
+                                        color: Colors.pink,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      }),
+            ),
           );
         });
   }
@@ -144,7 +139,7 @@ class EditDeleteNotes extends StatelessWidget {
                   "잉이이ㅣ이이",
                   "기타사항",
                   false),
-              child: Text("Update"),
+              child: const Text("Update"),
             )
           ],
         ),

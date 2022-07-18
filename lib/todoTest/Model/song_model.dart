@@ -18,4 +18,5 @@ class SongModel {
     this.songETC,
     this.songFavorite,
   );
+  static String? userId;
 }

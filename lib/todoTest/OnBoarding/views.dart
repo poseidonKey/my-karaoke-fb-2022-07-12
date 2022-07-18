@@ -93,11 +93,11 @@ class OnboardingPage extends StatelessWidget {
           Positioned(
               top: 10,
               right: 10,
-              child: FlatButton(
+              child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => HomePage());
                 },
-                child: Text(
+                child: const Text(
                   'Skip',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
