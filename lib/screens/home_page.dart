@@ -79,8 +79,8 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: ListView.builder(
-                // itemCount: songController.allSongs.length,
-                itemCount: 24,
+                itemCount: songController.allSongs.length,
+                // itemCount: 24,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: const Icon(Icons.favorite),
