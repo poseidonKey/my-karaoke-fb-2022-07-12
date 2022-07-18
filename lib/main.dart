@@ -1,47 +1,43 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/screens/home_page.dart';
-import 'package:my_karaoke_firebase/screens/home_page_test.dart';
-import 'package:my_karaoke_firebase/screens/signin_page.dart';
+import 'package:my_karaoke_firebase/todoTest/Binding/controller_binding.dart';
+import 'package:my_karaoke_firebase/todoTest/OnBoarding/views.dart';
+import 'package:my_karaoke_firebase/todoTest/Screens/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-// import 'models/my_song_data_fb_model.dart';
-// import 'models/song_model.dart';
 
-void main() {
+int? initScreen;
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
-      .then((value) => runApp(MyApp()));
+  await Firebase.initializeApp();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  initScreen = await prefs.getInt("initScreen");
+  await prefs.setInt("initScreen", 1);
+  print('initScreen ${initScreen}');
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
-
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent),
+    );
+
     return GetMaterialApp(
-      title: 'Flutter Firebase Songs Management',
+      title: 'To-Do App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
-      // home: ElevatedButton(
-      //     onPressed: () async {
-      //       // getAllSongs("ALXyp4TcnKeefbKcgq9emzH43z12");
-      //       // getDetailsList("ALXyp4TcnKeefbKcgq9emzH43z12");
-      //     },
-      //     child: const Text("load")),
-      home: HomePageTest(),
-      // home: Builder(
-      //     // builder: (context) =>
-      //     builder: (context) {
-      //   // print(isAuthenticated(context));
-      //   // return const HomePage(uid: "ALXyp4TcnKeefbKcgq9emzH43z12");
-      //   return HomePageTest();
-      //   // return const SigninPage();
-      //   // return MessageListScreen();
-      // }),
+      theme: ThemeData(primarySwatch: Colors.purple),
+      initialRoute:
+          initScreen == 0 || initScreen == null ? 'OnBoardingPage' : 'HomePage',
+      routes: {
+        'OnBoardingPage': (context) => OnboardingPage(),
+        'HomePage': (context) => HomePage(),
+      },
+      initialBinding: ControllerBinding(),
     );
   }
 }
