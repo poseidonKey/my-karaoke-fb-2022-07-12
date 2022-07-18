@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../controller/song_controller.dart';
 
 class HomePageTest extends StatelessWidget {
-  HomePageTest({Key? key}) : super(key: key);
+  const HomePageTest({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var songController = Get.put(SongController());
@@ -19,6 +19,9 @@ class HomePageTest extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () async {
+                  songController
+                      .addSong("ALXyp4TcnKeefbKcgq9emzH43z12")
+                      .then((value) => print("add song"));
                   // await addSong(Song.userId!)
                   //     .then((value) => print("add song"));
                 },
