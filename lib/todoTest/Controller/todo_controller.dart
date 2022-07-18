@@ -34,8 +34,6 @@ class ToDoController extends GetxController {
         "songFavorite": songFavorite,
       },
       SetOptions(merge: true),
-    ).then(
-      (value) => Get.back(),
     );
   }
 

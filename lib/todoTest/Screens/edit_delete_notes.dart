@@ -58,7 +58,7 @@ class EditDeleteNotes extends StatelessWidget {
                                           !todo.todoList[index].songFavorite,
                                         );
                                         Get.snackbar(
-                                          '$todo.todoList[index].songName',
+                                          '곡명 : ${todo.todoList[index].songName}',
                                           "Updated",
                                           snackPosition: SnackPosition.BOTTOM,
                                           backgroundColor: Colors.teal.shade100,
@@ -67,7 +67,7 @@ class EditDeleteNotes extends StatelessWidget {
                                         );
                                       },
                                       icon: const Icon(
-                                        FontAwesomeIcons.edit,
+                                        FontAwesomeIcons.penToSquare,
                                         color: Colors.blue,
                                       )),
                                   IconButton(
@@ -130,15 +130,20 @@ class EditDeleteNotes extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              onPressed: () async => await todo.addToData(
-                  _textEditingController.text.trim(),
-                  id,
-                  "곡명 : 테스트",
-                  "1111",
-                  "2222",
-                  "잉이이ㅣ이이",
-                  "기타사항",
-                  false),
+              onPressed: () async => await todo
+                  .addToData(
+                    _textEditingController.text.trim(),
+                    id,
+                    "곡명 : 테스트",
+                    "1111",
+                    "2222",
+                    "잉이이ㅣ이이",
+                    "기타사항",
+                    false,
+                  )
+                  .then(
+                    (value) => Get.back(),
+                  ),
               child: const Text("Update"),
             )
           ],

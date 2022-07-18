@@ -130,9 +130,7 @@ class AllNotes extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               onPressed: () async {
-                await addEditDelete(todo, '곡 추가하기', "").then(
-                  (value) => Get.back(),
-                );
+                await addEditDelete(todo, '곡 추가하기', "");
                 Get.snackbar('Great!', "추가 됐습니다.",
                     snackPosition: SnackPosition.BOTTOM,
                     backgroundColor: Colors.teal.shade100,
@@ -174,7 +172,7 @@ class AllNotes extends StatelessWidget {
                   "잉이이ㅣ이이",
                   "기타사항",
                   false,
-                );
+                ).then((value) => Get.back());
               },
               child: const Text("저장!"),
             )
