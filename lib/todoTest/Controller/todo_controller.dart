@@ -10,7 +10,7 @@ class ToDoController extends GetxController {
   Future<void> addToD(String task, bool done, String id) async {
     await FirebaseFirestore.instance
         .collection('todos')
-        .doc((id != '' ? id : null))
+        .doc((id != '' ? id : null)) //자동 생성
         .set({'task': task, 'isDone': done}, SetOptions(merge: true)).then(
             (value) => Get.back());
   }
@@ -23,7 +23,9 @@ class ToDoController extends GetxController {
           .get();
       todoList.clear();
       for (var item in _taskSnap.docs) {
-        todoList.add(ToDoModel(item['task'], item['isDone'], item.id));
+        todoList.add(
+          ToDoModel(item['task'], item['isDone'], item.id),
+        );
       }
       isLoading = false;
       update();
