@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
+import 'package:my_karaoke_firebase/sql/search_page.dart';
+import 'package:my_karaoke_firebase/sql/song_list.dart';
 
 class SQLHome extends StatelessWidget {
   const SQLHome({Key? key}) : super(key: key);
@@ -16,8 +19,7 @@ class SQLHome extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) {
-                      return Container();
-                      //SearchPage();
+                      return const SearchPage();
                     },
                     fullscreenDialog: true),
               );
@@ -25,11 +27,12 @@ class SQLHome extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(), //SongList(),
+      body: const SongList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(() => Container() //          AddEditPage(isNew: true),
-              );
+          Get.to(
+            () => const AddEditPage(isNew: true),
+          );
         },
         child: const Icon(Icons.add),
       ),
