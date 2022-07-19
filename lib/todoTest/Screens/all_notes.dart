@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/screens/signin_page.dart';
+import 'package:my_karaoke_firebase/sql/sql_home.dart';
 import 'package:my_karaoke_firebase/todoTest/Controller/todo_controller.dart';
 import 'package:my_karaoke_firebase/todoTest/Model/song_model.dart';
+import 'package:my_karaoke_firebase/todoTest/Screens/detail_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AllNotes extends StatelessWidget {
@@ -36,7 +38,9 @@ class AllNotes extends StatelessWidget {
                   tooltip: "Favorite",
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => const SQLHome());
+                  },
                   icon: const Icon(Icons.data_array_outlined),
                   tooltip: "MySQL",
                 ),
@@ -84,7 +88,7 @@ class AllNotes extends StatelessWidget {
                                       "Favorite",
                                       snackPosition: SnackPosition.BOTTOM,
                                       backgroundColor: Colors.teal.shade100,
-                                      margin: EdgeInsets.only(
+                                      margin: const EdgeInsets.only(
                                           bottom: 18, left: 10, right: 10));
                                 },
                                 icon: Icon(
@@ -115,6 +119,12 @@ class AllNotes extends StatelessWidget {
                                     },
                                     icon: const Icon(Icons.delete_forever),
                                   ),
+                                  onTap: () {
+                                    Get.to(
+                                      () => DetailView(
+                                          song: todo.todoList[index]),
+                                    );
+                                  },
                                 ),
                               ),
                             ],
@@ -169,16 +179,18 @@ class AllNotes extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                await toDoController.addToData(
-                  _textEditingController.text.trim(),
-                  id,
-                  "33333",
-                  "1111",
-                  "발라드",
-                  "잉이이ㅣ이이",
-                  "기타사항",
-                  false,
-                ).then((value) => Get.back());
+                await toDoController
+                    .addToData(
+                      _textEditingController.text.trim(),
+                      id,
+                      "33333",
+                      "1111",
+                      "발라드",
+                      "잉이이ㅣ이이",
+                      "기타사항",
+                      false,
+                    )
+                    .then((value) => Get.back());
               },
               child: const Text("저장!"),
             )
