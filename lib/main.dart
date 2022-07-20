@@ -12,6 +12,7 @@ String? initScreen;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // initScreen = await Get.find<SharedPreferences>().getString("userId");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = await prefs.getString("userId"); // .getInt("initScreen");
   print('initScreen $initScreen');

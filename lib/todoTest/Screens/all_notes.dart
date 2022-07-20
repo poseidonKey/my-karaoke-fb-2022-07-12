@@ -7,7 +7,10 @@ import 'package:my_karaoke_firebase/sql/sql_home.dart';
 import 'package:my_karaoke_firebase/todoTest/Controller/todo_controller.dart';
 import 'package:my_karaoke_firebase/todoTest/Model/song_model.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/detail_view.dart';
+import 'package:my_karaoke_firebase/todoTest/Screens/janre_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+enum Janre { POP, BALLADE, TROTS, CLASSIC, FAVORITY }
 
 class AllNotes extends StatelessWidget {
   AllNotes({
@@ -46,6 +49,13 @@ class AllNotes extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () async {
+                    return _showPopupMenu(context);
+                  },
+                  tooltip: "Menu보기",
+                  icon: const Icon(Icons.menu),
+                ),
+                IconButton(
+                  onPressed: () async {
                     return isSignOut();
                   },
                   tooltip: "Logout",
@@ -54,7 +64,7 @@ class AllNotes extends StatelessWidget {
               ],
               centerTitle: true,
               backgroundColor: const Color.fromRGBO(54, 115, 125, 1),
-              title: const Text("나의 애창곡 관리"),
+              title: const Text("나의 애창곡"),
             ),
             body: Center(
               child: todo.isLoading
@@ -198,6 +208,70 @@ class AllNotes extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showPopupMenu(BuildContext context) async {
+    String? selected = await showMenu<String>(
+        context: context,
+        position: RelativeRect.fromLTRB(MediaQuery.of(context).size.width / 8,
+            MediaQuery.of(context).size.height / 5, 100, 100),
+        items: <PopupMenuEntry<String>>[
+          const PopupMenuItem(
+            value: '발라드',
+            child: ListTile(
+              leading: Icon(Icons.note_add),
+              title: Text('발라드'),
+            ),
+          ),
+          const PopupMenuItem(
+            value: 'Pop',
+            child: ListTile(
+              leading: Icon(Icons.notification_important),
+              title: Text('Pop'),
+            ),
+          ),
+          const PopupMenuItem(
+            value: 'trots',
+            child: ListTile(
+              leading: Icon(Icons.pages),
+              title: Text('trots'),
+            ),
+          ),
+          const PopupMenuItem(
+            value: "classic",
+            child: ListTile(
+              leading: Icon(Icons.pages),
+              title: Text('Classic'),
+            ),
+          ),
+          const PopupMenuDivider(),
+          const PopupMenuItem(
+            value: 'favorite',
+            child: ListTile(
+              leading: Icon(Icons.favorite),
+              title: Text('즐겨찾기'),
+            ),
+          )
+        ]);
+    if (selected == null) {
+      return;
+    }
+    selectedMenu(context, selected);
+  }
+
+  void selectedMenu(BuildContext context, String selectedMenu) {
+    Get.to(const JanrePage());
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       // ignore: prefer_const_constructors
+    //       title: Text('Selected'),
+    //       content: Text('$selectedMenu 보여주기.'),
+    //       actions: [],
+    //     );
+    //   },
+    // );
   }
 
   Future<void> isSignOut() async {
