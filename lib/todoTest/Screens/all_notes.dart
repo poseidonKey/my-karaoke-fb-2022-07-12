@@ -263,7 +263,7 @@ class AllNotes extends StatelessWidget {
   }
 
   void selectedMenu(BuildContext context, String selectedMenu) {
-    Get.to(const JanrePage());
+    // Get.to(const JanrePage());
     // showDialog(
     //   context: context,
     //   builder: (context) {
