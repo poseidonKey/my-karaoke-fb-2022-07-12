@@ -26,7 +26,7 @@ class AllNotes extends StatelessWidget {
         init: ToDoController(),
         initState: (_) {},
         builder: (todo) {
-          todo.getData();
+          // todo.getData();
           return Scaffold(
             backgroundColor: const Color.fromRGBO(245, 182, 201, 1),
             appBar: AppBar(
@@ -213,8 +213,11 @@ class AllNotes extends StatelessWidget {
   void _showPopupMenu(BuildContext context) async {
     String? selected = await showMenu<String>(
         context: context,
-        position: RelativeRect.fromLTRB(MediaQuery.of(context).size.width / 8,
-            MediaQuery.of(context).size.height / 5, 100, 100),
+        position: RelativeRect.fromLTRB(
+            MediaQuery.of(context).size.width / 2 + 50,
+            MediaQuery.of(context).size.height / 5,
+            100,
+            100),
         items: <PopupMenuEntry<String>>[
           const PopupMenuItem(
             value: '발라드',
