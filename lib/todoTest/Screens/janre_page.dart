@@ -17,17 +17,7 @@ class _JanrePageState extends State<JanrePage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void _clearSearch() {
-    setState(() {
-      _notes = null;
-    });
+    searchData();
   }
 
   void searchData() {

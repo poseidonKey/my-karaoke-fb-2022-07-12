@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:my_karaoke_firebase/sql/db_helper.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
+import 'package:my_karaoke_firebase/sql/sql_home.dart';
 
 class AddEditPage extends StatefulWidget {
   final bool isNew;
@@ -112,10 +113,10 @@ class _AddEditPageState extends State<AddEditPage> {
                       width: 20,
                     ),
                     DropdownButton(
-                      items: ["pop", "가요", "발라드", "클래식", "트롯"]
+                      items: ["pop", "가요", "발라드", "클래식", "트롯","즐겨찾기"]
                           .map((e) => DropdownMenuItem(
                                 value: e,
-                                child: Text(e),
+                                child: Text("구분 : $e"),
                               ))
                           .toList(),
                       value: _selJanre,
@@ -123,7 +124,27 @@ class _AddEditPageState extends State<AddEditPage> {
                       // value: widget.isNew ? _selJanre : widget.ev!.songJanre,
                       onChanged: (String? value) {
                         setState(() {
-                          _selJanre = value!;
+                          switch (value!) {
+                            case "pop":
+                              _selJanre=Janre.POP.toString();
+                              break;
+                            case "가요":
+                              _selJanre=Janre.KARAOKE.toString();
+                              break;
+                            case "발라드":
+                              _selJanre=Janre.BALLADE.toString();
+                              break;
+                            case "클래식":
+                              _selJanre=Janre.CLASSIC.toString();
+                              break;
+                            case "트롯":
+                              _selJanre=Janre.TROTS.toString();
+                              break;
+                            case "즐겨찾기":
+                              _selJanre=Janre.FAVORITY.toString();
+                              break;
+                            default:
+                          }
                           _songJanre = _selJanre;
                         });
                       },

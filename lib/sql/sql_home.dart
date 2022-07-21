@@ -5,7 +5,7 @@ import 'package:my_karaoke_firebase/sql/search_page.dart';
 import 'package:my_karaoke_firebase/sql/song_list.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/janre_page.dart';
 
-enum Janre { POP, BALLADE, TROTS, CLASSIC, FAVORITY }
+enum Janre { POP, KARAOKE, BALLADE, TROTS, CLASSIC, FAVORITY }
 
 class SQLHome extends StatelessWidget {
   const SQLHome({Key? key}) : super(key: key);
@@ -71,10 +71,17 @@ class SQLHome extends StatelessWidget {
             100),
         items: <PopupMenuEntry<String>>[
           const PopupMenuItem(
-            value: '발라드',
+            value: "발라드",
             child: ListTile(
               leading: Icon(Icons.note_add),
               title: Text('발라드'),
+            ),
+          ),
+          const PopupMenuItem(
+            value: '가요',
+            child: ListTile(
+              leading: Icon(Icons.note_add),
+              title: Text('가요'),
             ),
           ),
           const PopupMenuItem(
@@ -88,7 +95,7 @@ class SQLHome extends StatelessWidget {
             value: 'trots',
             child: ListTile(
               leading: Icon(Icons.pages),
-              title: Text('trots'),
+              title: Text('트롯'),
             ),
           ),
           const PopupMenuItem(
@@ -113,10 +120,32 @@ class SQLHome extends StatelessWidget {
     selectedMenu(context, selected);
   }
 
-  void selectedMenu(BuildContext context, String selectedMenu) {
+  void selectedMenu(BuildContext context, String selectedJanre) {
+    String _janre = "";
+    switch (selectedJanre) {
+      case "pop":
+        _janre = Janre.POP.toString();
+        break;
+      case "가요":
+        _janre = Janre.KARAOKE.toString();
+        break;
+      case "발라드":
+        _janre = Janre.BALLADE.toString();
+        break;
+      case "클래식":
+        _janre = Janre.CLASSIC.toString();
+        break;
+      case "트롯":
+        _janre = Janre.TROTS.toString();
+        break;
+      case "즐겨찾기":
+        _janre = Janre.FAVORITY.toString();
+        break;
+      default:
+    }
     Get.to(
       JanrePage(
-        searchJanre: Janre.CLASSIC.toString(),
+        searchJanre: _janre,
       ),
     );
     // showDialog(
