@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
@@ -48,6 +50,53 @@ class SQLHome extends StatelessWidget {
             icon: const Icon(Icons.menu),
           ),
         ],
+      ),
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width / 2,
+        elevation: 5,
+        child: Column(
+          children: [
+            const DrawerHeader(
+              child: Text(
+                "데이터 관리",
+                style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            ListTile(
+                title: const Text("외부 데이터 가져오기"),
+                onTap: (() {
+                  Get.back();
+                })),
+            ListTile(
+                title: const Text("모든 곡 삭제"),
+                onTap: (() {
+                  Get.back();
+                })),
+            ListTile(
+                title: const Text("서버 업로드"),
+                onTap: (() {
+                  Get.back();
+                })),
+            ListTile(
+                title: const Text("데이터 백업"),
+                onTap: (() {
+                  Get.back();
+                })),
+            ListTile(
+                title: const Text("데이터 복원"),
+                onTap: (() {
+                  Get.back();
+                })),
+            ElevatedButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text("닫기"))
+          ],
+        ),
       ),
       body: const SongList(),
       floatingActionButton: FloatingActionButton(
