@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
@@ -174,10 +172,10 @@ class SQLHome extends StatelessWidget {
     if (selected == null) {
       return;
     }
-    selectedMenu(context, selected);
+    selectedMenu(selected);
   }
 
-  void selectedMenu(BuildContext context, String selectedJanre) {
+  void selectedMenu(String selectedJanre) {
     String _janre = "";
     switch (selectedJanre) {
       case "pop":
@@ -205,16 +203,5 @@ class SQLHome extends StatelessWidget {
         searchJanre: _janre,
       ),
     );
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return AlertDialog(
-    //       // ignore: prefer_const_constructors
-    //       title: Text('Selected'),
-    //       content: Text('$selectedMenu 보여주기.'),
-    //       actions: [],
-    //     );
-    //   },
-    // );
   }
 }
