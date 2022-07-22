@@ -66,7 +66,8 @@ class _SearchPageState extends State<SearchPage> {
             helper.openDb();
             if (searchTerm!.isNotEmpty) {
               setState(() {
-                _notes = helper.searchList(searchTerm!);
+                _notes = helper.searchList(
+                    kind: "songName", searchTerm: searchTerm!);
               });
             }
           },
@@ -74,7 +75,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: _notes == null
           ? const Center(
-              child:  Text(
+              child: Text(
                 'Search for Notes',
                 style: TextStyle(fontSize: 18.0),
               ),
@@ -84,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(
-                    child:  CircularProgressIndicator(),
+                    child: CircularProgressIndicator(),
                   );
                 }
                 print(snapshot.data.length);

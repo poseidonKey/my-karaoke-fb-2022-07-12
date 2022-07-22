@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:my_karaoke_firebase/sql/db_helper.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
 import 'package:my_karaoke_firebase/sql/sql_home.dart';
+import 'package:my_karaoke_firebase/todoTest/Screens/all_notes.dart'
+    as SongKind;
 
 class AddEditPage extends StatefulWidget {
   final bool isNew;
@@ -20,7 +22,7 @@ class _AddEditPageState extends State<AddEditPage> {
   final _formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? _songName, _songGYNumber, _songTJNumber, _songUtubeAddress, _songETC;
-  String _songJanre = "";
+  String _songJanre = "가요";
   String? _createTime;
   String _songFavorite = "false";
   String _selJanre = "가요";
@@ -113,35 +115,36 @@ class _AddEditPageState extends State<AddEditPage> {
                       width: 20,
                     ),
                     DropdownButton(
-                      items: ["pop", "가요", "발라드", "클래식", "트롯","즐겨찾기"]
+                      items: ["가요", "발라드", "클래식", "트롯", "즐겨찾기"]
                           .map((e) => DropdownMenuItem(
                                 value: e,
-                                child: Text("구분 : $e"),
+                                child: Text("장르 : $e"),
                               ))
                           .toList(),
                       value: _selJanre,
                       hint: const Text("쟝르 선택"),
                       // value: widget.isNew ? _selJanre : widget.ev!.songJanre,
                       onChanged: (String? value) {
+                        print(value);
                         setState(() {
-                          switch (value!) {
+                          switch (value) {
                             case "pop":
-                              _selJanre=Janre.POP.toString();
+                              _selJanre = "pop";
                               break;
                             case "가요":
-                              _selJanre=Janre.KARAOKE.toString();
+                              _selJanre = "가요";
                               break;
                             case "발라드":
-                              _selJanre=Janre.BALLADE.toString();
+                              _selJanre = "발라드";
                               break;
                             case "클래식":
-                              _selJanre=Janre.CLASSIC.toString();
+                              _selJanre = "클래식";
                               break;
                             case "트롯":
-                              _selJanre=Janre.TROTS.toString();
+                              _selJanre = "트롯";
                               break;
                             case "즐겨찾기":
-                              _selJanre=Janre.FAVORITY.toString();
+                              _selJanre = "즐겨찾기";
                               break;
                             default:
                           }

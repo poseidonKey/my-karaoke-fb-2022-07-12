@@ -85,21 +85,21 @@ class SQLHome extends StatelessWidget {
             ),
           ),
           const PopupMenuItem(
-            value: 'Pop',
+            value: 'pop',
             child: ListTile(
               leading: Icon(Icons.notification_important),
               title: Text('Pop'),
             ),
           ),
           const PopupMenuItem(
-            value: 'trots',
+            value: '트롯',
             child: ListTile(
               leading: Icon(Icons.pages),
               title: Text('트롯'),
             ),
           ),
           const PopupMenuItem(
-            value: "classic",
+            value: "클래식",
             child: ListTile(
               leading: Icon(Icons.pages),
               title: Text('Classic'),
@@ -107,7 +107,7 @@ class SQLHome extends StatelessWidget {
           ),
           const PopupMenuDivider(),
           const PopupMenuItem(
-            value: 'favorite',
+            value: '즐겨찾기',
             child: ListTile(
               leading: Icon(Icons.favorite),
               title: Text('즐겨찾기'),
@@ -124,22 +124,22 @@ class SQLHome extends StatelessWidget {
     String _janre = "";
     switch (selectedJanre) {
       case "pop":
-        _janre = Janre.POP.toString();
+        _janre = "pop";
         break;
       case "가요":
-        _janre = Janre.KARAOKE.toString();
+        _janre = "가요";
         break;
       case "발라드":
-        _janre = Janre.BALLADE.toString();
+        _janre = "발라드";
         break;
       case "클래식":
-        _janre = Janre.CLASSIC.toString();
+        _janre = "클래식";
         break;
       case "트롯":
-        _janre = Janre.TROTS.toString();
+        _janre = "트롯";
         break;
       case "즐겨찾기":
-        _janre = Janre.FAVORITY.toString();
+        _janre = "즐겨찾기";
         break;
       default:
     }

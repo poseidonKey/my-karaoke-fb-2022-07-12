@@ -22,11 +22,12 @@ class _JanrePageState extends State<JanrePage> {
 
   void searchData() {
     String searchTerm = widget.searchJanre;
+    print(searchTerm);
     DbHelper helper = DbHelper();
     helper.openDb();
     if (searchTerm.isNotEmpty) {
       setState(() {
-        _notes = helper.searchList(searchTerm);
+        _notes = helper.searchList(kind: "songJanre", searchTerm: searchTerm);
       });
     }
   }
@@ -38,10 +39,10 @@ class _JanrePageState extends State<JanrePage> {
         title: const Text("Janre"),
       ),
       body: _notes == null
-          ? const Center(
+          ? Center(
               child: Text(
-                'Search for Notes',
-                style: TextStyle(fontSize: 18.0),
+                '${widget.searchJanre} 곡이 없습니다.',
+                style: const TextStyle(fontSize: 18.0),
               ),
             )
           : FutureBuilder(
@@ -65,10 +66,10 @@ class _JanrePageState extends State<JanrePage> {
                 ];
 
                 if (foundNotes.isEmpty) {
-                  return const Center(
+                  return Center(
                     child: Text(
-                      'No note found, please try again',
-                      style: TextStyle(fontSize: 18.0),
+                      ' ${widget.searchJanre} no Data. please try again',
+                      style: const TextStyle(fontSize: 18.0),
                     ),
                   );
                 }
