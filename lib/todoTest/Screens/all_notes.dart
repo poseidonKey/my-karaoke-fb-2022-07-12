@@ -44,7 +44,7 @@ class AllNotes extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => const SQLHome());
                   },
-                  icon: const Icon(Icons.data_array_outlined),
+                  icon: const Icon(Icons.install_mobile),
                   tooltip: "MySQL",
                 ),
                 IconButton(
@@ -52,14 +52,14 @@ class AllNotes extends StatelessWidget {
                     return _showPopupMenu(context);
                   },
                   tooltip: "Menu보기",
-                  icon: const Icon(Icons.menu),
+                  icon: const Icon(Icons.more_vert),
                 ),
                 IconButton(
                   onPressed: () async {
                     return isSignOut();
                   },
                   tooltip: "Logout",
-                  icon: const Icon(Icons.exit_to_app_outlined),
+                  icon: const Icon(Icons.logout),
                 )
               ],
               centerTitle: true,

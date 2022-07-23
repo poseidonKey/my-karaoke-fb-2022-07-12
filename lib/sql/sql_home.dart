@@ -5,6 +5,8 @@ import 'package:my_karaoke_firebase/sql/search_page.dart';
 import 'package:my_karaoke_firebase/sql/song_list.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/janre_page.dart';
 
+import '../todoTest/Screens/all_notes.dart';
+
 enum Janre { POP, KARAOKE, BALLADE, TROTS, CLASSIC, FAVORITY }
 
 class SQLHome extends StatelessWidget {
@@ -14,10 +16,12 @@ class SQLHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('내부 DB'),
+        title: const Text('폰 내부 데이터'),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
+            tooltip: "곡명으로 찾기",
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -29,23 +33,18 @@ class SQLHome extends StatelessWidget {
             },
           ),
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_outline_rounded),
-            tooltip: "Favorite",
-          ),
-          IconButton(
             onPressed: () {
-              Get.to(() => const SQLHome());
+              Get.to(() => AllNotes());
             },
-            icon: const Icon(Icons.data_array_outlined),
-            tooltip: "MySQL",
+            tooltip: "원격데이터로 이동",
+            icon: const Icon(Icons.network_check_sharp),
           ),
           IconButton(
             onPressed: () async {
               return _showPopupMenu(context);
             },
-            tooltip: "Menu보기",
-            icon: const Icon(Icons.menu),
+            tooltip: "장르별 곡 찾기",
+            icon: const Icon(Icons.more_vert),
           ),
         ],
       ),
@@ -77,7 +76,7 @@ class SQLHome extends StatelessWidget {
                     Get.back();
                   })),
               ListTile(
-                  title: const Text("서버 업로드"),
+                  title: const Text("서버로 업로드"),
                   onTap: (() {
                     Get.back();
                   })),
