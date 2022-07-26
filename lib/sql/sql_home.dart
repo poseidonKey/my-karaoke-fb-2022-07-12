@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/my_server/data/services.dart';
 import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
 import 'package:my_karaoke_firebase/sql/search_page.dart';
 import 'package:my_karaoke_firebase/sql/song_list.dart';
@@ -109,9 +110,10 @@ class SQLHome extends StatelessWidget {
       body: const SongList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(
-            () => const AddEditPage(isNew: true),
-          );
+          Services.fetchProducts();
+          // Get.to(
+          //   () => const AddEditPage(isNew: true),
+          // );
         },
         child: const Icon(Icons.add),
       ),
