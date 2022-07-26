@@ -1,14 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/my_server/data/services.dart';
+import 'package:my_karaoke_firebase/my_server/views/home_page_server.dart';
 import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
 import 'package:my_karaoke_firebase/sql/search_page.dart';
 import 'package:my_karaoke_firebase/sql/song_list.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/janre_page.dart';
-import '../todoTest/Screens/all_notes.dart';
-
 import '../todoTest/Screens/all_notes.dart';
 
 enum Janre { POP, KARAOKE, BALLADE, TROTS, CLASSIC, FAVORITY }
@@ -70,6 +67,12 @@ class SQLHome extends StatelessWidget {
                 ),
               ),
               ListTile(
+                  title: const Text("자체 서버 데이터"),
+                  onTap: (() {
+                    Get.to(() => HomePageServer());
+                    // Get.back();
+                  })),
+              ListTile(
                   title: const Text("외부 데이터 가져오기"),
                   onTap: (() {
                     Get.back();
@@ -110,10 +113,9 @@ class SQLHome extends StatelessWidget {
       body: const SongList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Services.fetchProducts();
-          // Get.to(
-          //   () => const AddEditPage(isNew: true),
-          // );
+          Get.to(
+            () => const AddEditPage(isNew: true),
+          );
         },
         child: const Icon(Icons.add),
       ),

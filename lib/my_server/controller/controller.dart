@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/models/song_model.dart';
-
 import '../data/services.dart';
 
-class Controller extends GetxController{
-  var productList = <Song>[].obs;
+class ControllerServer extends GetxController {
+  var songList = <Song>[].obs;
 
   @override
   void onInit() {
@@ -12,10 +11,11 @@ class Controller extends GetxController{
     fetchData();
   }
 
-  void fetchData() async{
-   var products = await Services.fetchProducts();
-   if(products !=null){
-     productList.value = products;
-   }
+  void fetchData() async {
+    var songs = await Services.fetchProducts();
+    if (songs != null) {
+      songList.value = songs;
+      print(songList.length);
+    }
   }
 }
