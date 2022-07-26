@@ -8,6 +8,8 @@ import 'package:my_karaoke_firebase/sql/song_list.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/janre_page.dart';
 import '../todoTest/Screens/all_notes.dart';
 
+import '../todoTest/Screens/all_notes.dart';
+
 enum Janre { POP, KARAOKE, BALLADE, TROTS, CLASSIC, FAVORITY }
 
 class SQLHome extends StatelessWidget {
