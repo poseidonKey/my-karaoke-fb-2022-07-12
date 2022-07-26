@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
 import 'package:my_karaoke_firebase/sql/db_helper.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
+import 'package:my_karaoke_firebase/sql/sql_home.dart';
 
 class JanrePage extends StatefulWidget {
   const JanrePage({Key? key, required this.searchJanre}) : super(key: key);

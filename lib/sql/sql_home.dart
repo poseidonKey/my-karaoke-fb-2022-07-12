@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
@@ -170,56 +172,47 @@ class SQLHome extends StatelessWidget {
     if (selected == null) {
       return;
     }
-    selectedMenu(selected);
+    selectedMenu(context, selected);
   }
 
-  void selectedMenu(String selectedJanre) {
-    Janre _janre = Janre.KARAOKE;
+  void selectedMenu(BuildContext context, String selectedJanre) {
+    String _janre = "";
     switch (selectedJanre) {
       case "pop":
-        _janre = Janre.POP;
+        _janre = "pop";
         break;
       case "가요":
-        _janre = Janre.KARAOKE;
+        _janre = "가요";
         break;
       case "발라드":
-        _janre = Janre.BALLADE;
-        break;
-      case "트롯":
-        _janre = Janre.TROTS;
+        _janre = "발라드";
         break;
       case "클래식":
-        _janre = Janre.CLASSIC;
+        _janre = "클래식";
+        break;
+      case "트롯":
+        _janre = "트롯";
         break;
       case "즐겨찾기":
-        _janre = Janre.FAVORITY;
+        _janre = "즐겨찾기";
         break;
+      default:
     }
-    // switch (selectedJanre) {
-    //   case "pop":
-    //     _janre = "pop";
-    //     break;
-    //   case "가요":
-    //     _janre = "가요";
-    //     break;
-    //   case "발라드":
-    //     _janre = "발라드";
-    //     break;
-    //   case "클래식":
-    //     _janre = "클래식";
-    //     break;
-    //   case "트롯":
-    //     _janre = "트롯";
-    //     break;
-    //   case "즐겨찾기":
-    //     _janre = "즐겨찾기";
-    //     break;
-    //   default:
-    // }
     Get.to(
       JanrePage(
         searchJanre: _janre,
       ),
     );
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       // ignore: prefer_const_constructors
+    //       title: Text('Selected'),
+    //       content: Text('$selectedMenu 보여주기.'),
+    //       actions: [],
+    //     );
+    //   },
+    // );
   }
 }
