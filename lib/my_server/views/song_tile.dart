@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/models/song_model.dart';
+import 'package:my_karaoke_firebase/my_server/views/add_edit_server.dart';
 
 class SongTile extends StatelessWidget {
   SongTile({Key? key, required this.song}) : super(key: key);
@@ -24,57 +26,40 @@ class SongTile extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text(song.songName),
+                    child: Text("제목: ${song.songName}"),
                   ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 15,
-                    child: IconButton(
-                      icon: Icon(Icons.favorite_rounded),
-                      onPressed: () {
-                        // product.like.toggle();
-                      },
-                      iconSize: 18,
+                  Positioned(
+                    top: 50,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 15,
+                      child: IconButton(
+                        icon: const Icon(Icons.edit),
+                        color: Colors.red,
+                        onPressed: () {
+                          Get.to(
+                            () => AddEditServer(
+                              isNew: false,
+                              songItem: song,
+                            ),
+                          );
+                        },
+                        iconSize: 18,
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 15),
               Text(
-                song.songJanre,
+                "분류 : ${song.songJanre}",
                 maxLines: 2,
-                style: const TextStyle(fontWeight: FontWeight.w400),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  color: Colors.blueAccent,
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
-              // const SizedBox(height: 8),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: Colors.green,
-              //     borderRadius: BorderRadius.circular(12),
-              //   ),
-              //   padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-              //   child: Row(
-              //     mainAxisSize: MainAxisSize.min,
-              //     children: [
-              //       Text(
-              //         song.id.toString(),
-              //         style: const TextStyle(color: Colors.white),
-              //       ),
-              //       const Icon(
-              //         Icons.star,
-              //         size: 16,
-              //         color: Colors.white,
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(height: 8),
-              // Text(
-              //   '\$${song.songETC}',
-              //   style: const TextStyle(
-              //     fontSize: 20,
-              //   ),
-              // ),
             ],
           ),
         ),

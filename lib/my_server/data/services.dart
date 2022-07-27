@@ -7,10 +7,11 @@ class Services {
 
   static Future<List<Song>?> fetchProducts() async {
     // var response = await client
-    //     .get(Uri.parse('http://122.37.216.171:12345/my_karaoke_db/')); //외부
-    var response = await client
-        .get(Uri.parse('http://192.168.219.107/my_karaoke_db/')); // 내부
-
+    //     .get(Uri.parse('http://192.168.219.107/my_karaoke_db/')); // 내부 index.html
+    // var response = await client
+    //     .get(Uri.parse('http://122.37.216.171:12345/my_karaoke_db/loadData.php')); //외부
+    var response = await client.get(
+        Uri.parse('http://192.168.219.107/my_karaoke_db/loadData.php')); // 내부
     if (response.statusCode == 200) {
       var jsonData = response.body;
       return songFromJson(jsonData);

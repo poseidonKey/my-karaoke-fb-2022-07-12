@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/my_server/controller/controller.dart';
+import 'package:my_karaoke_firebase/my_server/views/add_edit_server.dart';
 import 'package:my_karaoke_firebase/my_server/views/song_tile.dart';
 
 class HomePageServer extends StatelessWidget {
@@ -16,12 +17,12 @@ class HomePageServer extends StatelessWidget {
         leading: const Icon(Icons.menu),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.view_list_rounded),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Get.to(
+                () => const AddEditServer(isNew: true, songItem: null),
+              );
+            },
+            icon: const Icon(Icons.add),
           ),
         ],
       ),
