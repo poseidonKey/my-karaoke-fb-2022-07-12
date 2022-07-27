@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/models/song_model.dart';
+import 'package:my_karaoke_firebase/my_server/data/services.dart';
+import 'package:my_karaoke_firebase/my_server/views/home_page_server.dart';
 
 class AddEditServer extends StatefulWidget {
   final bool isNew;
@@ -173,8 +176,9 @@ class _AddEditServerState extends State<AddEditServer> {
                   vertical: 5.0,
                 ),
                 child: TextFormField(
-                  initialValue:
-                      widget.isNew == true ? null : widget.songItem!.songOwnerId,
+                  initialValue: widget.isNew == true
+                      ? null
+                      : widget.songItem!.songOwnerId,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     filled: true,
@@ -223,15 +227,26 @@ class _AddEditServerState extends State<AddEditServer> {
     _formKey.currentState!.save();
     try {
       if (mode == "add") {
-        final song = Song(
-            null,
-            _songName!,
-            _songGYNumber!,
-            _songTJNumber!,
-            _songJanre,
-            _songUtubeAddress!,
-            _songETC!,
-            songOwnerId!);
+        final song = Song(null, _songName!, _songGYNumber!, _songTJNumber!,
+            _songJanre, _songUtubeAddress!, _songETC!, songOwnerId!);
+        Get.defaultDialog(
+          title: "추가 확인",
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Services.putData();
+                  Get.offAll(()=>HomePageServer());
+                },
+                child: const Text("확인")),
+            ElevatedButton(
+                onPressed: () {
+                  Get.snackbar("추가 취소", "추가를 취소했습니다");
+                  Get.offAll(()=>HomePageServer());
+                },
+                child: const Text("취소")),
+          ],
+          content: const Text("곡을 추가합니다."),
+        );
       } else {
         final song = Song(
             widget.songItem!.id,
@@ -242,6 +257,23 @@ class _AddEditServerState extends State<AddEditServer> {
             _songUtubeAddress!,
             _songETC!,
             songOwnerId!);
+        Get.defaultDialog(
+          title: "수정 확인",
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Services.updateData(song: song);
+                  Get.offAll(()=>HomePageServer());
+                },
+                child: const Text("확인")),
+            ElevatedButton(
+                onPressed: () {
+                  Get.offAll(()=>HomePageServer());
+                },
+                child: const Text("취소")),
+          ],
+          content: const Text("현재 선택 항목을 수정합니다."),
+        );
       }
     } catch (e) {
       print(e);

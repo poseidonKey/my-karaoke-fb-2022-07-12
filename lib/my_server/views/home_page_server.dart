@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/my_server/controller/controller.dart';
+import 'package:my_karaoke_firebase/my_server/data/services.dart';
 import 'package:my_karaoke_firebase/my_server/views/add_edit_server.dart';
 import 'package:my_karaoke_firebase/my_server/views/song_tile.dart';
+import 'package:my_karaoke_firebase/sql/sql_home.dart';
 
 class HomePageServer extends StatelessWidget {
   HomePageServer({Key? key}) : super(key: key);
@@ -11,11 +13,22 @@ class HomePageServer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('애창곡 Server'),
+        title: const Text('애창곡 : Server'),
         backgroundColor: Colors.black87,
         elevation: 0,
-        leading: const Icon(Icons.menu),
+        leading: IconButton(
+          onPressed: () {
+            Get.offAll(() => const SQLHome());
+          },
+          icon: const Icon(Icons.menu),
+        ),
         actions: [
+          IconButton(
+            onPressed: () {
+              Services.putData();
+            },
+            icon: const Icon(Icons.access_alarm),
+          ),
           IconButton(
             onPressed: () {
               Get.to(
@@ -26,21 +39,18 @@ class HomePageServer extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-          child: Obx(
-            () => GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
-              itemBuilder: (context, index) {
-                // return Text("aa");
-                return SongTile(
-                  song: controllerServer.songList[index],
-                );
-              },
-              itemCount: controllerServer.songList.length,
-            ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+        child: Obx(
+          () => GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
+            itemBuilder: (context, index) {
+              return SongTile(
+                song: controllerServer.songList[index],
+              );
+            },
+            itemCount: controllerServer.songList.length,
           ),
         ),
       ),

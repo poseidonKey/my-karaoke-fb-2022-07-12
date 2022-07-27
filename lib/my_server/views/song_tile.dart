@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/models/song_model.dart';
+import 'package:my_karaoke_firebase/my_server/data/services.dart';
 import 'package:my_karaoke_firebase/my_server/views/add_edit_server.dart';
 
 class SongTile extends StatelessWidget {
@@ -49,6 +52,30 @@ class SongTile extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete),
+                color: Colors.red,
+                onPressed: () {
+                  Get.defaultDialog(
+                    title: "삭제 확인",
+                    actions: [
+                      ElevatedButton(
+                          onPressed: () {
+                            Services.deleteData(num: "7");
+                            Get.back();
+                          },
+                          child: const Text("확인")),
+                      ElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text("취소")),
+                    ],
+                    content: const Text("현재 선택 항목을 삭제합니다."),
+                  );
+                },
+                iconSize: 18,
               ),
               const SizedBox(height: 15),
               Text(

@@ -20,6 +20,45 @@ class Services {
       return [];
     }
   }
+
+  static Future deleteData({required String num}) async {
+    var response = await client.put(
+      Uri.parse('http://192.168.219.107/my_karaoke_db/deleteData.php?id=$num'),
+    ); // 내부
+    if (response.statusCode == 200) {
+      var jsonData = response.body;
+      print(jsonData);
+    } else {
+      return [];
+    }
+  }
+
+  static Future updateData({required Song song}) async {
+    var cli=http.Client();
+    var response = await cli.put(
+      Uri.parse(
+          'http://192.168.219.107/my_karaoke_db/updateData.php?id=${song.id}&songOwnerId=\'owner55\'&songName=\'maamm\'&songGYNumber=\'000\'&songTJNumber=\'888\'&songJanre=\'발라드\'&songUtubeAddress=\'utube\'&songETC=\'기타9999\''),
+    ); // 내부
+    if (response.statusCode == 200) {
+      var jsonData = response.body;
+      print(jsonData);
+    } else {
+      return [];
+    }
+  }
+
+  static Future putData() async {
+    var response = await client.put(
+      Uri.parse(
+          'http://192.168.219.107/my_karaoke_db/insertData.php?songOwnerId=\'owner55\'&songName=\'maamm\'&songGYNumber=\'777\'&songTJNumber=\'888\'&songJanre=\'발라드\'&songUtubeAddress=\'utube\'&songETC=\'기타88\''),
+    ); // 내부
+    if (response.statusCode == 200) {
+      var jsonData = response.body;
+      print(jsonData);
+    } else {
+      return [];
+    }
+  }
 }
 
 List<Song> songFromJson(String str) => List<Song>.from(
