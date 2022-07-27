@@ -34,10 +34,12 @@ class Services {
   }
 
   static Future updateData({required Song song}) async {
-    var cli=http.Client();
-    var response = await cli.put(
+    var response = await client.put(
+      //   Uri.parse(
+      //       "http://192.168.219.107/my_karaoke_db/updateDataTest.php?id=${song.id}&songName='name_000'&songJanre='클래식'"),
+      // ); // 내부
       Uri.parse(
-          'http://192.168.219.107/my_karaoke_db/updateData.php?id=${song.id}&songOwnerId=\'owner55\'&songName=\'maamm\'&songGYNumber=\'000\'&songTJNumber=\'888\'&songJanre=\'발라드\'&songUtubeAddress=\'utube\'&songETC=\'기타9999\''),
+          "http://192.168.219.107/my_karaoke_db/updateData.php?id=${song.id}&songOwnerId='${song.songOwnerId}'&songName='${song.songName}'&songGYNumber='${song.songGYNumber}'&songTJNumber='${song.songTJNumber}'&songJanre='${song.songJanre}'&songUtubeAddress='${song.songUtubeAddress}'&songETC='${song.songETC}'"),
     ); // 내부
     if (response.statusCode == 200) {
       var jsonData = response.body;

@@ -235,13 +235,13 @@ class _AddEditServerState extends State<AddEditServer> {
             ElevatedButton(
                 onPressed: () {
                   Services.putData();
-                  Get.offAll(()=>HomePageServer());
+                  Get.offAll(() => HomePageServer());
                 },
                 child: const Text("확인")),
             ElevatedButton(
                 onPressed: () {
                   Get.snackbar("추가 취소", "추가를 취소했습니다");
-                  Get.offAll(()=>HomePageServer());
+                  Get.offAll(() => HomePageServer());
                 },
                 child: const Text("취소")),
           ],
@@ -249,26 +249,27 @@ class _AddEditServerState extends State<AddEditServer> {
         );
       } else {
         final song = Song(
-            widget.songItem!.id,
-            _songName!,
-            _songGYNumber!,
-            _songTJNumber!,
-            _songJanre,
-            _songUtubeAddress!,
-            _songETC!,
-            songOwnerId!);
+          widget.songItem!.id,
+          songOwnerId!,
+          _songName!,
+          _songGYNumber!,
+          _songTJNumber!,
+          _songJanre,
+          _songUtubeAddress!,
+          _songETC!,
+        );
         Get.defaultDialog(
           title: "수정 확인",
           actions: [
             ElevatedButton(
                 onPressed: () {
                   Services.updateData(song: song);
-                  Get.offAll(()=>HomePageServer());
+                  Get.offAll(() => HomePageServer());
                 },
                 child: const Text("확인")),
             ElevatedButton(
                 onPressed: () {
-                  Get.offAll(()=>HomePageServer());
+                  Get.offAll(() => HomePageServer());
                 },
                 child: const Text("취소")),
           ],
