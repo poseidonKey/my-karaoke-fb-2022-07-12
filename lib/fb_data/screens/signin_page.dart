@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/todoTest/Model/song_model.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../todoTest/Model/song_model.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);

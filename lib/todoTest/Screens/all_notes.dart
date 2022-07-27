@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/screens/signin_page.dart';
+import 'package:my_karaoke_firebase/fb_data/screens/signin_page.dart';
 import 'package:my_karaoke_firebase/sql/sql_home.dart';
 import 'package:my_karaoke_firebase/todoTest/Controller/todo_controller.dart';
 import 'package:my_karaoke_firebase/todoTest/Model/song_model.dart';

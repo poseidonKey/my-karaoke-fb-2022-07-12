@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/screens/signin_page.dart';
+import 'package:my_karaoke_firebase/fb_data/screens/signin_page.dart';
 import 'package:my_karaoke_firebase/todoTest/Binding/controller_binding.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/home_page.dart';
 

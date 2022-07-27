@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:my_karaoke_firebase/models/song_model.dart';
+import 'package:my_karaoke_firebase/fb_data/models/song_model.dart';
 
 class Services {
   static var client = http.Client();

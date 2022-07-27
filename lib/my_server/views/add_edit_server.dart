@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/models/song_model.dart';
+import 'package:my_karaoke_firebase/fb_data/models/song_model.dart';
 import 'package:my_karaoke_firebase/my_server/data/services.dart';
 import 'package:my_karaoke_firebase/my_server/views/home_page_server.dart';
 

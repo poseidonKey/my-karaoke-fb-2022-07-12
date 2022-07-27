@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/controller/song_controller.dart';
+import 'package:my_karaoke_firebase/fb_data/controller/song_controller.dart';
 import '../models/stream_data.dart';
 import '../models/song_model.dart';
 

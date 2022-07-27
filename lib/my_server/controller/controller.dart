@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_karaoke_firebase/models/song_model.dart';
+import 'package:my_karaoke_firebase/fb_data/models/song_model.dart';
 import '../data/services.dart';
 
 class ControllerServer extends GetxController {
