@@ -1,0 +1,201 @@
+﻿<STYLE TYPE="text/css">
+	table {font-size: 100%;}
+</STYLE>
+<style>
+  a:link { text-decoration: none; color: #0000ff ;font-size:9pt}
+  a:active { text-decoration: none; color: #FF0000 }
+  a:visited { text-decoration: none; color: #ff0000 }
+  a:hover { text-decoration : underline; color: #FF0000 }
+  body {  font-family: "굴림"; font-size: 9pt; color: #000000;
+           scrollbar-face-color:#ffffff;
+           scrollbar-shadow-color:#666666;
+           scrollbar-highlight-color:#666666;
+           scrollbar-3dlight-color:#ffffff;
+           scrollbar-darkshadow-color:#ffffff;
+           scrollbar-track-color:#ffffff;
+           scrollbar-arrow-color:#666666;
+        }
+  td {font-size=12pt}
+</style>
+
+<head>
+   <title>Poseidon 즐겨찿기</title>
+
+<STYLE type="text/css">
+  BODY {
+    scrollbar-face-color: #FFB6C1;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #FFB6C1;
+    scrollbar-darkshadow-color: #CD5C5C;
+    scrollbar-shadow-color: #f08080;
+    scrollbar-arrow-color: #FF69B4;
+    scrollbar-track-color: #FF69B4;}
+  </STYLE>
+</head>
+
+<body>
+
+  <?php
+     if(!$_COOKIE["jsy"]) {
+           echo "
+                 <script>
+                    window.alert('승인을 받아야 사용 가능합니다.');
+                    location.href='login.php';
+                 </script>
+                 ";
+        }
+  ?>
+  <table align="center" border="0" width="900">
+    <tr>
+      <td width="1000" height="40" >
+
+          <p align="center"><b><font color="fuchsia"><span style="font-size:18pt;">어디로
+
+          가 볼까요?<img src="go.gif" align="middle" width=80 height=100 border="0" ></span></font></b>
+
+          </p>    
+
+      </td>
+    </tr>
+</table>
+  <?php
+     $connect=mysql_connect("localhost","jsy","jsy1030") or die("실패");
+     mysql_select_db("php",$connect);
+  
+     $query="select * from fav_category";
+  
+     $result=mysql_query($query,$connect);
+     ?>
+	    
+     <table border=0 width=900 align=center>
+        <col width=190>
+        <col width=190>
+        <col width=190>
+        <col width=190>
+        <col width=190>
+        <tr valign=top>
+        <?php
+           $tmp=0;
+           while($data=mysql_fetch_array($result)) {
+        ?>
+           <td>
+              <table width=100% bgcolor=#eeeeee>
+                 <tr>
+                    <td align="center"  style="color: #ffff00; background-color:#00aa00;;height:25px;font-size: larger;" >
+                      <b><?php echo "$data[fa_name]☞$data[fa_code]"; ?></b></td>
+                 </tr>
+              </table>
+        <?php
+  
+           $q="select * from fav_data where code='$data[fa_code]'";
+  
+           $r=mysql_query($q,$connect);
+  
+           while($d=mysql_fetch_array($r)) {
+  
+           ?>
+  
+              &nbsp;<li><a href=<?=$d[url]?> target=_blank title="<?=$d[alt] ?>"><?=$d[name]?></a>
+  
+                 <b>[<a href=edit.html?no=<?=$d[no]?>>수정</a>]</b>
+  
+           <?php
+  
+  //         echo $d[alt];
+  
+           }
+  
+           ?>
+  
+           </td>
+  
+           <?php
+  
+           $tmp++;
+  
+           if($tmp % 5 == 0) echo "</tr><tr valign=top>";
+  
+        }
+  
+        ?>
+  
+        </tr>
+  
+     </table>
+  
+     <hr>
+  
+        <table align="center" border="0" width="1000">
+  
+     <tr>
+  
+          <td align=center>
+  
+              <form action=add.html method=post name=f>
+  
+                 <input type=submit value=' Site 추가 ' onclick="return window.confirm('추가하시겠습니까');">
+  
+              </form>
+  
+           </td>
+  
+           <td width="800" height="30">
+  
+              <p align="center"><b><font color="blue"><span style="font-size:15pt;">Dowhagol & Wonsarang</span></font></b></p>
+  
+          </td>
+  
+           <td align=center>
+  
+              <form action=del.html method=post name=f1>
+  
+                 <input type=submit value=' Site 삭제 ' onclick="return window.confirm('삭제하시겠습니까');">
+  
+              </form>
+  
+          </td>
+  
+     </tr>
+  
+     <tr>
+  
+           <td align=center>
+  
+              <form action=add_cate.html method=post name=f2>
+  
+                 <input type=submit value=' Category 추가 ' onclick="return window.confirm('Category를 추가하시겠습니까');">
+  
+              </form>
+  
+          </td>
+  
+           <td align=center>
+  
+              <form action=edit_cate.html method=post name=f2>
+  
+                 <input type=submit value=' Category 수정하기 ' onclick="return window.confirm('Category를 수정하시겠습니까');">
+  
+              </form>
+  
+          </td>
+  
+           <td align=center>
+  
+              <form action=del_cate.html method=post name=f2>
+  
+                 <input type=submit value=' Category 삭제하기 ' onclick="return window.confirm('Category를 삭제하시겠습니까');">
+  
+              </form>
+  
+          </td>
+  
+      </tr>
+      <tr>
+        <td colspan=3 align=center><b>마지막 수정날짜 [<font color=red><?php
+  //                              $aha=date("Y년 m월 d일 a h시 i분",filemtime($PATH_TRANSLATED));
+                                $aha="1991년 8월 10일 09시 30분";
+                                echo $aha;
+                             ?></font>]</b>
+  
+      </table>
+</body>
