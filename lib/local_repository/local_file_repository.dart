@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/local_repository/add_edit_local_repository.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,10 +31,26 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('텍스트 파일 이용'),
-        centerTitle: true,
-      ),
+      appBar:
+          AppBar(title: const Text('텍스트 파일 이용'), centerTitle: true, actions: [
+        IconButton(
+            icon: const Icon(Icons.delete_forever_outlined),
+            onPressed: () async {
+              var dir = await getApplicationDocumentsDirectory();
+              bool fileExist = await File("${dir.path}/songs.txt").exists();
+              // print(fileExist);
+              if (fileExist) {
+                await File("${dir.path}/songs.txt").delete();
+                Get.defaultDialog(
+                    title: "이전 데이터 삭제!!",
+                    content: const Text("앱을 다시 실행해 주세요."),
+                    actions: [
+                      ElevatedButton(
+                          onPressed: () => Get.back(), child: const Text("확인")),
+                    ]);
+              }
+            }),
+      ]),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
@@ -68,31 +85,14 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var dir = await getApplicationDocumentsDirectory();
-          bool fileExist = await File("${dir.path}/songs.txt").exists();
-          // print(fileExist);
-          if (fileExist) {
-            await File("${dir.path}/songs.txt").delete();
-            Get.defaultDialog(
-                title: "이전 데이터 삭제!!",
-                content: const Text("앱을 다시 실행해 주세요."),
-                actions: [
-                  ElevatedButton(
-                      onPressed: () => Get.back(), child: const Text("확인")),
-                ]);
-          }
+        onPressed: () {
+          Get.to(
+            () => const AddEditLocalRepositoryPage(isNew: true),
+          );
         },
         child: const Icon(Icons.add),
       ),
     );
-  }
-
-  void writeFruit(String song) async {
-    var dir = await getApplicationDocumentsDirectory();
-    var file = await File('${dir.path}/songs.txt').readAsString();
-    file = '$file\n$song';
-    File('${dir.path}/songs.txt').writeAsStringSync(file);
   }
 
   Future<List<SongItem>> readListFile() async {
