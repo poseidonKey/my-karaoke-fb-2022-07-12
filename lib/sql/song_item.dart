@@ -20,7 +20,7 @@ class SongItem {
       this.songFavorite);
   Map<String, dynamic> toMap() {
     return {
-      "id": (id == 0) ? null : id,
+      "id": (id == "0") ? null : id,
       "songName": songName,
       "songGYNumber": songGYNumber,
       "songTJNumber": songTJNumber,

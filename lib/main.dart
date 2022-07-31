@@ -1,19 +1,19 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/fb_data/screens/signin_page.dart';
+import 'package:my_karaoke_firebase/local_repository/local_file_repository.dart';
 import 'package:my_karaoke_firebase/todoTest/Binding/controller_binding.dart';
 import 'package:my_karaoke_firebase/todoTest/Screens/home_page.dart';
-
 import 'sql/sql_home.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 String? initScreen;
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   // // initScreen = await Get.find<SharedPreferences>().getString("userId");
   // SharedPreferences prefs = await SharedPreferences.getInstance();
   // initScreen = await prefs.getString("userId"); // .getInt("initScreen");
@@ -43,7 +43,9 @@ class App extends StatelessWidget {
       //   'HomePage': (context) => HomePage(),
       // },
       initialBinding: ControllerBinding(),
-      home: const SQLHome(),
+      // home: const SQLHome(),
+      home: const LocalFileRepository(),
+      // home: const SigninPage(),
     );
   }
 }
