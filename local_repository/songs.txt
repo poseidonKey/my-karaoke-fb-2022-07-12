@@ -1,4 +1,6 @@
-사과
-바나나
-딸기
-복숭아
+1,이름,1111,2222,가요,https://youtube.com,etc,2022-1-1,false
+2,이름2,1111,2222,가요,https://youtube.com,etc,2022-1-1,true
+3,이름3,1111,2222,가요,https://youtube.com,etc,2022-1-1,false
+4,이름4,1111,2222,가요,https://youtube.com,etc,2022-1-1,false
+5,이름5,1111,2222,가요,https://youtube.com,etc,2022-1-1,true
+6,산다는 것은,1111,2222,가요,https://youtube.com,etc,2022-1-1,true

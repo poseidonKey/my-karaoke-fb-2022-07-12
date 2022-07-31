@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/sql/song_item.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,12 +13,11 @@ class LocalFileRepository extends StatefulWidget {
 }
 
 class _LocalFileRepositoryState extends State<LocalFileRepository> {
-  List<String> songSList = [];
-  TextEditingController controller = TextEditingController();
+  List<SongItem> songsList = [];
   void initData() async {
     var result = await readListFile();
     setState(() {
-      songSList.addAll(result);
+      songsList.addAll(result);
     });
   }
 
@@ -30,29 +31,36 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('텍스트 파일'),
+        title: const Text('텍스트 파일 이용'),
+        centerTitle: true,
       ),
-      body: Container(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Column(
             children: <Widget>[
-              TextField(
-                controller: controller,
-                keyboardType: TextInputType.text,
-              ),
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return Card(
+                      elevation: 5,
                       child: Center(
-                        child: Text(
-                          songSList[index],
-                          style: const TextStyle(fontSize: 30),
+                        child: Row(
+                          children: [
+                            Text(
+                              songsList[index].id!,
+                              style: const TextStyle(fontSize: 30),
+                            ),
+                            Text(
+                              "번,  ${songsList[index].songName}",
+                              style: const TextStyle(fontSize: 30),
+                            ),
+                          ],
                         ),
                       ),
                     );
                   },
-                  itemCount: songSList.length,
+                  itemCount: songsList.length,
                 ),
               )
             ],
@@ -60,12 +68,20 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          writeFruit(controller.value.text);
-          setState(() {
-            songSList.add(controller.value.text);
-          });
-          controller.text = "";
+        onPressed: () async {
+          var dir = await getApplicationDocumentsDirectory();
+          bool fileExist = await File("${dir.path}/songs.txt").exists();
+          // print(fileExist);
+          if (fileExist) {
+            await File("${dir.path}/songs.txt").delete();
+            Get.defaultDialog(
+                title: "이전 데이터 삭제!!",
+                content: const Text("앱을 다시 실행해 주세요."),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () => Get.back(), child: const Text("확인")),
+                ]);
+          }
         },
         child: const Icon(Icons.add),
       ),
@@ -76,11 +92,11 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
     var dir = await getApplicationDocumentsDirectory();
     var file = await File('${dir.path}/songs.txt').readAsString();
     file = '$file\n$song';
-    File('${dir.path}/fruit.txt').writeAsStringSync(file);
+    File('${dir.path}/songs.txt').writeAsStringSync(file);
   }
 
-  Future<List<String>> readListFile() async {
-    List<String> itemList = [];
+  Future<List<SongItem>> readListFile() async {
+    List<SongItem> itemList = [];
     var key = "first";
     SharedPreferences pref = await SharedPreferences.getInstance();
     bool? firstCheck = pref.getBool(key);
@@ -90,26 +106,38 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
       pref.setBool(key, true);
       var file = await DefaultAssetBundle.of(context)
           .loadString("local_repository/songs.txt");
-      File("${dir.path}/fruit.txt").writeAsStringSync(file);
+      File("${dir.path}/songs.txt").writeAsStringSync(file);
 
-      return itemList = stringAsArray(file, itemList);
+      return itemList = await stringAsArray(file);
     } else {
       var file = await File("${dir.path}/songs.txt").readAsString();
-      // var array = file.split("\n");
-      // for (var item in array) {
-      //   print(item);
-      //   itemList.add(item);
-      // }
-      return itemList = stringAsArray(file, itemList);
+      return itemList = await stringAsArray(file);
     }
   }
 
-  List<String> stringAsArray(String file, List<String> list) {
+  Future<List<SongItem>> stringAsArray(String file) async {
     var array = file.split("\n");
-    for (var item in array) {
-      print(item);
-      list.add(item);
+    List<SongItem> songs = [];
+    for (var items in array) {
+      var contents = items.split(",");
+      var data = [];
+      for (var i = 0; i < contents.length; i++) {
+        data.add(contents[i]);
+      }
+      var song = SongItem(
+        data[0],
+        data[1],
+        data[2],
+        data[3],
+        data[4],
+        data[5],
+        data[6],
+        data[7],
+        data[8],
+      );
+      data.clear();
+      songs.add(song);
     }
-    return list;
+    return songs;
   }
 }
