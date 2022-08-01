@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/local_repository/add_edit_local_repository.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
+import 'package:my_karaoke_firebase/sql/song_list.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,22 +60,35 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 5,
-                      child: Center(
-                        child: Row(
-                          children: [
-                            Text(
-                              songsList[index].id!,
-                              style: const TextStyle(fontSize: 30),
-                            ),
-                            Text(
-                              "번,  ${songsList[index].songName}",
-                              style: const TextStyle(fontSize: 30),
-                            ),
-                          ],
+                    return GestureDetector(
+                      child: Card(
+                        elevation: 5,
+                        child: Center(
+                          child: Row(
+                            children: [
+                              Text(
+                                songsList[index].id!,
+                                style: const TextStyle(fontSize: 30),
+                              ),
+                              Text(
+                                "번,  ${songsList[index].songName}",
+                                style: const TextStyle(fontSize: 30),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                      onTap: () async {
+                        var result = await Get.to(
+                          () => AddEditLocalRepositoryPage(
+                              isNew: false, songItem: songsList[index]),
+                        );
+                        if (result != "success") {
+                          setState(() {
+                            songsList[index] = result;
+                          });
+                        }
+                      },
                     );
                   },
                   itemCount: songsList.length,
@@ -85,10 +99,26 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(
-            () => const AddEditLocalRepositoryPage(isNew: true),
-          );
+        onPressed: () async {
+          var id1 =
+              int.parse(songsList[songsList.length - 1].id.toString()) + 1;
+          var result = await Get.to(
+              () => const AddEditLocalRepositoryPage(
+                    isNew: true,
+                  ),
+              arguments: id1);
+          if (result == "success") {
+            // print("success");
+            songsList.clear();
+            var dir = await getApplicationDocumentsDirectory();
+            var file = await File("${dir.path}/songs.txt").readAsString();
+            var result = await readListFile();
+            setState(() {
+              songsList.addAll(result);
+            });
+            // songsList = await stringAsArray(file);
+            // setState(() {});
+          }
         },
         child: const Icon(Icons.add),
       ),

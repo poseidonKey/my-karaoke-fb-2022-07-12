@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:my_karaoke_firebase/sql/db_helper.dart';
+import 'package:my_karaoke_firebase/fb_data/models/song_model.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -241,11 +241,11 @@ class _AddEditLocalRepositoryPage extends State<AddEditLocalRepositoryPage> {
     try {
       if (mode == "add") {
         var str =
-            "100,$_songName,$_songGYNumber,$_songTJNumber,$_songJanre,_songUtubeAddress,$_songETC,$_createTime,$_songFavorite";
+            "${Get.arguments},$_songName,$_songGYNumber,$_songTJNumber,$_songJanre,_songUtubeAddress,$_songETC,$_createTime,$_songFavorite";
         writeSong(str);
-        Get.back();
+        Get.back(result: "success");
       } else {
-        final newEventDetail = SongItem(
+        final song = SongItem(
             widget.songItem!.id,
             _songName!,
             _songGYNumber!,
@@ -255,7 +255,7 @@ class _AddEditLocalRepositoryPage extends State<AddEditLocalRepositoryPage> {
             _songETC!,
             "2022.1.1",
             _songFavorite);
-        Get.back();
+        Get.back(result: song);
       }
     } catch (e) {
       print(e);
