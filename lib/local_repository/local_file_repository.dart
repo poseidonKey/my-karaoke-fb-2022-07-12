@@ -74,6 +74,38 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
                                 "번,  ${songsList[index].songName}",
                                 style: const TextStyle(fontSize: 30),
                               ),
+                              const Expanded(child: Text("")),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () async {
+                                  setState(() {
+                                    songsList.removeAt(index);
+                                  });
+                                  var dir =
+                                      await getApplicationDocumentsDirectory();
+                                  var fileString = "";
+                                  for (var i = 0; i < songsList.length; i++) {
+                                    var item = (songsList[i].id != null &&
+                                            songsList[i].id != "")
+                                        ? songsList[i]
+                                        : null;
+                                    if (item != null) {
+                                      var str =
+                                          "${item.id},${item.songName},${item.songGYNumber},${item.songTJNumber},${item.songJanre},${item.songUtubeAddress},${item.songETC},${item.songCreateTime},${item.songFavorite}\n";
+                                      fileString += str;
+                                    }
+                                  }
+                                  // for (var item in songsList) {
+                                  //   var str =
+                                  //       "${item.id},${item.songName},${item.songGYNumber},${item.songTJNumber},${item.songJanre},${item.songUtubeAddress},${item.songETC},${item.songCreateTime},${item.songFavorite}\n";
+                                  //   fileString += str;
+                                  // }
+                                  // fileString = fileString.substring(0, -1);
+                                  File('${dir.path}/songs.txt').deleteSync();
+                                  File('${dir.path}/songs.txt')
+                                      .writeAsStringSync(fileString);
+                                },
+                              )
                             ],
                           ),
                         ),
