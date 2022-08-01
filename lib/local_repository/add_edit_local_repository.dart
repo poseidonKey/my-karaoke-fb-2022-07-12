@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:my_karaoke_firebase/fb_data/models/song_model.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -227,7 +225,7 @@ class _AddEditLocalRepositoryPage extends State<AddEditLocalRepositoryPage> {
   void writeSong(String song) async {
     var dir = await getApplicationDocumentsDirectory();
     var file = await File('${dir.path}/songs.txt').readAsString();
-    file = '$file\n$song';
+    file = '$file$song';
     File('${dir.path}/songs.txt').writeAsStringSync(file);
   }
 
@@ -241,7 +239,7 @@ class _AddEditLocalRepositoryPage extends State<AddEditLocalRepositoryPage> {
     try {
       if (mode == "add") {
         var str =
-            "${Get.arguments},$_songName,$_songGYNumber,$_songTJNumber,$_songJanre,_songUtubeAddress,$_songETC,$_createTime,$_songFavorite";
+            "${Get.arguments},$_songName,$_songGYNumber,$_songTJNumber,$_songJanre,$_songUtubeAddress,$_songETC,$_createTime,$_songFavorite\n";
         writeSong(str);
         Get.back(result: "success");
       } else {

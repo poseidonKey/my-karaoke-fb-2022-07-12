@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_karaoke_firebase/local_repository/add_edit_local_repository.dart';
 import 'package:my_karaoke_firebase/sql/song_item.dart';
-import 'package:my_karaoke_firebase/sql/song_list.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -95,6 +94,7 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
                                       fileString += str;
                                     }
                                   }
+                                  print(fileString);
                                   // for (var item in songsList) {
                                   //   var str =
                                   //       "${item.id},${item.songName},${item.songGYNumber},${item.songTJNumber},${item.songJanre},${item.songUtubeAddress},${item.songETC},${item.songCreateTime},${item.songFavorite}\n";
@@ -148,8 +148,6 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
             setState(() {
               songsList.addAll(result);
             });
-            // songsList = await stringAsArray(file);
-            // setState(() {});
           }
         },
         child: const Icon(Icons.add),
@@ -179,6 +177,7 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
 
   Future<List<SongItem>> stringAsArray(String file) async {
     var array = file.split("\n");
+    array.removeLast();
     List<SongItem> songs = [];
     for (var items in array) {
       var contents = items.split(",");
