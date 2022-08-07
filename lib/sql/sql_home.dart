@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/local_repository/local_file_repository.dart';
 import 'package:my_karaoke_firebase/my_server/data/services.dart';
 import 'package:my_karaoke_firebase/my_server/views/home_page_server.dart';
 import 'package:my_karaoke_firebase/sql/add_edit_screen.dart';
@@ -66,6 +67,11 @@ class SQLHome extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
               ),
+              ListTile(
+                  title: const Text("자체 텍스트 데이터"),
+                  onTap: (() {
+                    Get.offAll(() => const LocalFileRepository());
+                  })),
               ListTile(
                   title: const Text("자체 서버 데이터"),
                   onTap: (() {
