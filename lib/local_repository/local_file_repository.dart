@@ -38,7 +38,7 @@ class _LocalFileRepositoryState extends State<LocalFileRepository> {
             onPressed: () {
               Get.offAll(() => const SQLHome());
             },
-            icon: const Icon(Icons.move_to_inbox),
+            icon: const Icon(Icons.dataset_linked_rounded),
             tooltip: "SQL 홈으로 이동",
           ),
           centerTitle: true,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_karaoke_firebase/fb_data/screens/home_page.dart';
 import 'package:my_karaoke_firebase/local_repository/local_file_repository.dart';
 import 'package:my_karaoke_firebase/my_server/data/services.dart';
 import 'package:my_karaoke_firebase/my_server/views/home_page_server.dart';
@@ -18,7 +19,7 @@ class SQLHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('폰 내부 데이터'),
+        title: const Text('폰 내부 SQL 데이터'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -79,9 +80,10 @@ class SQLHome extends StatelessWidget {
                     // Get.back();
                   })),
               ListTile(
-                  title: const Text("외부 데이터 가져오기"),
+                  title: const Text("Firebase 데이터"),
                   onTap: (() {
-                    Get.back();
+                    Get.offAll(() =>
+                        const HomePage(uid: "HnZj74TUihV528TzskKtjAR5pZy1"));
                   })),
               ListTile(
                   title: const Text("모든 곡 삭제"),
