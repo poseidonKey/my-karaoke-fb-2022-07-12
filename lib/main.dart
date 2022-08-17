@@ -34,17 +34,17 @@ class App extends StatelessWidget {
       title: 'Song-manage App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.purple),
-      // initialRoute: initScreen == "" || initScreen == null
-      //     ? 'OnBoardingPage'
-      //     : 'HomePage',
-      // routes: {
-      //   // 'OnBoardingPage': (context) => OnboardingPage(),
-      //   'OnBoardingPage': (context) => const SigninPage(),
-      //   'HomePage': (context) => HomePage(),
-      // },
+      initialRoute: initScreen == "" || initScreen == null
+          ? 'OnBoardingPage'
+          : 'HomePage',
+      routes: {
+        // 'OnBoardingPage': (context) => OnboardingPage(),
+        'OnBoardingPage': (context) => const SigninPage(),
+        'HomePage': (context) => HomePage(),
+      },
       initialBinding: ControllerBinding(),
       // home: const SQLHome(),
-      home: const LocalFileRepository(),
+      // home: const LocalFileRepository(),
       // home: const SigninPage(),
     );
   }

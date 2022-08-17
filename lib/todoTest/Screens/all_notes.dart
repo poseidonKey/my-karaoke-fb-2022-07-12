@@ -44,7 +44,7 @@ class AllNotes extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => const SQLHome());
                   },
-                  icon: const Icon(Icons.install_mobile),
+                  icon: const Icon(Icons.data_array),
                   tooltip: "MySQL",
                 ),
                 IconButton(
@@ -200,7 +200,7 @@ class AllNotes extends StatelessWidget {
                       "기타사항",
                       false,
                     )
-                    .then((value) => Get.back());
+                    .then((value) => Get.off(AllNotes())); //  .back());
               },
               child: const Text("저장!"),
             )
